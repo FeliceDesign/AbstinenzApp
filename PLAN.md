@@ -25,7 +25,20 @@ English.
   - [x] Localization scaffold (`app_de.arb`, `app_en.arb`).
   - [x] Empty dashboard, `flutter analyze` clean, tests green.
   - [x] GitHub Action building the release APK.
-- [ ] **Phase 1** — Onboarding + Habit + QuitAttempt + Time Tracker
+- [x] **Phase 1 — Onboarding + Habit + QuitAttempt + Time Tracker**
+  - [x] `SharedPreferences` gate + go_router redirect into onboarding on first run
+  - [x] Multi-step onboarding (welcome + disclaimer → habit type/name/unit →
+        start time), with the alcohol medical-taper warning
+  - [x] `HabitRepository` — create habit + first quit attempt in one
+        transaction, reactive streams (unit-tested)
+  - [x] Riverpod code-gen providers (clock, repository, active habits, attempts)
+  - [x] Live `StreakTicker` — 1s tick, lifecycle-aware (no background timer),
+        gold→sand gradient, days-only toggle, reduce-motion aware
+  - [x] Dashboard renders the ticker per habit (single card / swipeable
+        carousel for multiple); survives restart via drift
+  - [x] Widget tests: fresh install → onboarding; onboarded → live streak
+- [ ] **Phase 1 follow-ups (deferred by design, noted for later phases):**
+      onboarding steps for baseline (Phase 7) and the first "why" (Phase 4).
 - [ ] **Phase 2** — Relapse flow + history + "clean days total"
 - [ ] **Phase 3** — Urge Toolkit (all techniques) + UrgeEvents
 - [ ] **Phase 4** — Motivation / Why / Benefits + dashboard integration

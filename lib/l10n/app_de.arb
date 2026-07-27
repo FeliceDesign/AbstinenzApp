@@ -1,15 +1,59 @@
 {
   "@@locale": "de",
   "appTitle": "Clean Tracker",
-  "@appTitle": {
-    "description": "The application name shown in the launcher and app bar."
-  },
+
   "navDashboard": "Übersicht",
   "navCalendar": "Kalender",
   "navToolkit": "Toolkit",
   "navStats": "Statistik",
   "navMore": "Mehr",
   "comingSoon": "Diese Funktion folgt in einer späteren Phase.",
+  "genericError": "Etwas ist schiefgelaufen.",
+
   "dashboardEmptyTitle": "Willkommen",
-  "dashboardEmptyBody": "Richte im Onboarding deinen ersten Weg ein, dann läuft hier dein Zähler."
+  "dashboardEmptyBody": "Richte im Onboarding deinen ersten Weg ein, dann läuft hier dein Zähler.",
+  "noActiveAttempt": "Kein aktiver Versuch.",
+
+  "streakDaysLabel": "{count, plural, =1{Tag} other{Tage}}",
+  "streakSemantics": "{days} Tage clean, {clock}",
+  "dashLongestStreak": "Längster Streak: {count, plural, =1{1 Tag} other{# Tage}}",
+  "dashAttempt": "Versuch #{n}",
+  "dashCleanSince": "Clean seit {date}",
+  "dashDaysOnly": "Nur Tage",
+  "dashDetail": "Detailliert",
+
+  "habitTypeAlcohol": "Alkohol",
+  "habitTypeNicotine": "Nikotin",
+  "habitTypeCannabis": "Cannabis",
+  "habitTypeSugar": "Zucker",
+  "habitTypeGaming": "Gaming",
+  "habitTypePorn": "Pornografie",
+  "habitTypeOther": "Anderes",
+
+  "unitAlcohol": "Getränk",
+  "unitNicotine": "Zigarette",
+  "unitCannabis": "Gramm",
+  "unitSugar": "Portion",
+  "unitGaming": "Stunde",
+  "unitPorn": "Sitzung",
+  "unitOther": "Einheit",
+
+  "onbWelcomeTitle": "Willkommen bei Clean Tracker",
+  "onbWelcomeBody": "Ein ruhiger, privater Ort für deine clean-Zeit. Alles bleibt auf deinem Gerät — kein Konto, keine Cloud.",
+  "onbDisclaimer": "Diese App ist kein medizinisches Produkt und ersetzt keine ärztliche oder therapeutische Behandlung.",
+  "onbAlcoholWarning": "Abruptes Absetzen von Alkohol kann medizinisch gefährlich sein (Krampfanfälle, Delir). Bitte hole vorher ärztlichen Rat ein.",
+
+  "onbHabitTitle": "Was möchtest du tracken?",
+  "onbNameLabel": "Name",
+  "onbUnitLabel": "Einheit",
+  "onbUnitHelper": "z. B. Bier, Zigarette, Gramm",
+
+  "onbStartTitle": "Wann begann deine clean-Zeit?",
+  "onbStartBody": "Wähle den Moment, an dem dein aktueller Streak begann. Er darf in der Vergangenheit liegen.",
+  "onbStartNow": "Auf jetzt setzen",
+
+  "onbBack": "Zurück",
+  "onbNext": "Weiter",
+  "onbFinish": "Los geht's",
+  "onbIncomplete": "Bitte wähle einen Typ und gib einen Namen ein."
 }

@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 
 import '../core/widgets/placeholder_screen.dart';
 import '../features/dashboard/presentation/dashboard_screen.dart';
+import '../features/onboarding/domain/onboarding_gate.dart';
+import '../features/onboarding/presentation/onboarding_screen.dart';
 import '../l10n/app_localizations.dart';
 
 /// App routes. Declarative and deep-linkable via go_router.
@@ -12,6 +14,7 @@ import '../l10n/app_localizations.dart';
 /// swapping a single body widget, loses scroll position and in-progress flows.
 class AppRoutes {
   const AppRoutes._();
+  static const String onboarding = '/onboarding';
   static const String dashboard = '/';
   static const String calendar = '/calendar';
   static const String toolkit = '/toolkit';
@@ -19,10 +22,25 @@ class AppRoutes {
   static const String more = '/more';
 }
 
-GoRouter buildRouter() {
+/// Builds the router. Takes the [OnboardingGate] so it can both redirect
+/// un-onboarded users into the flow and refresh when onboarding completes.
+GoRouter buildRouter(OnboardingGate gate) {
   return GoRouter(
     initialLocation: AppRoutes.dashboard,
+    refreshListenable: gate,
+    redirect: (context, state) {
+      final bool onboarded = gate.isComplete;
+      final bool atOnboarding =
+          state.matchedLocation == AppRoutes.onboarding;
+      if (!onboarded) return atOnboarding ? null : AppRoutes.onboarding;
+      if (atOnboarding) return AppRoutes.dashboard;
+      return null;
+    },
     routes: [
+      GoRoute(
+        path: AppRoutes.onboarding,
+        builder: (context, state) => const OnboardingScreen(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
             _ScaffoldWithNav(navigationShell: navigationShell),

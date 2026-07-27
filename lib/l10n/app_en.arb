@@ -1,12 +1,81 @@
 {
   "@@locale": "en",
   "appTitle": "Clean Tracker",
+  "@appTitle": {
+    "description": "The application name shown in the launcher and app bar."
+  },
+
   "navDashboard": "Dashboard",
   "navCalendar": "Calendar",
   "navToolkit": "Toolkit",
   "navStats": "Stats",
   "navMore": "More",
   "comingSoon": "This feature arrives in a later phase.",
+  "genericError": "Something went wrong.",
+
   "dashboardEmptyTitle": "Welcome",
-  "dashboardEmptyBody": "Set up your first path in onboarding, then your counter runs here."
+  "dashboardEmptyBody": "Set up your first path in onboarding, then your counter runs here.",
+  "noActiveAttempt": "No active attempt.",
+
+  "streakDaysLabel": "{count, plural, =1{day} other{days}}",
+  "@streakDaysLabel": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "streakSemantics": "{days} days clean, {clock}",
+  "@streakSemantics": {
+    "description": "Accessibility label for the live streak ticker.",
+    "placeholders": {
+      "days": { "type": "int" },
+      "clock": { "type": "String" }
+    }
+  },
+  "dashLongestStreak": "Longest streak: {count, plural, =1{1 day} other{# days}}",
+  "@dashLongestStreak": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "dashAttempt": "Attempt #{n}",
+  "@dashAttempt": {
+    "placeholders": { "n": { "type": "int" } }
+  },
+  "dashCleanSince": "Clean since {date}",
+  "@dashCleanSince": {
+    "placeholders": { "date": { "type": "String" } }
+  },
+  "dashDaysOnly": "Days only",
+  "dashDetail": "Detailed",
+
+  "habitTypeAlcohol": "Alcohol",
+  "habitTypeNicotine": "Nicotine",
+  "habitTypeCannabis": "Cannabis",
+  "habitTypeSugar": "Sugar",
+  "habitTypeGaming": "Gaming",
+  "habitTypePorn": "Porn",
+  "habitTypeOther": "Other",
+
+  "unitAlcohol": "drink",
+  "unitNicotine": "cigarette",
+  "unitCannabis": "gram",
+  "unitSugar": "portion",
+  "unitGaming": "hour",
+  "unitPorn": "session",
+  "unitOther": "unit",
+
+  "onbWelcomeTitle": "Welcome to Clean Tracker",
+  "onbWelcomeBody": "A calm, private space to track your clean time. Everything stays on your device — no account, no cloud.",
+  "onbDisclaimer": "This app is not a medical product and does not replace medical or therapeutic care.",
+  "onbAlcoholWarning": "Stopping alcohol abruptly can be medically dangerous (seizures, delirium). Please seek medical advice before quitting.",
+
+  "onbHabitTitle": "What do you want to track?",
+  "onbNameLabel": "Name",
+  "onbUnitLabel": "Unit",
+  "onbUnitHelper": "e.g. drink, cigarette, gram",
+
+  "onbStartTitle": "When did your clean time start?",
+  "onbStartBody": "Pick the moment your current streak began. It can be in the past.",
+  "onbStartNow": "Set to now",
+
+  "onbBack": "Back",
+  "onbNext": "Next",
+  "onbFinish": "Start",
+  "onbIncomplete": "Please pick a type and enter a name."
 }
