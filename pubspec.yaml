@@ -30,6 +30,13 @@ dependencies:
   # Formatting / i18n
   intl: any
 
+# path_provider_android 2.3.x switched its implementation to JNI bindings, and
+# jni 1.0.1's Android Gradle script is incompatible with the current Flutter
+# Gradle plugin ("Could not find method kotlin()"), breaking the release APK
+# build. Pin to the last pre-JNI release until the ecosystem catches up.
+dependency_overrides:
+  path_provider_android: 2.2.23
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
