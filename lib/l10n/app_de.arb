@@ -1,0 +1,15 @@
+{
+  "@@locale": "de",
+  "appTitle": "Clean Tracker",
+  "@appTitle": {
+    "description": "The application name shown in the launcher and app bar."
+  },
+  "navDashboard": "Übersicht",
+  "navCalendar": "Kalender",
+  "navToolkit": "Toolkit",
+  "navStats": "Statistik",
+  "navMore": "Mehr",
+  "comingSoon": "Diese Funktion folgt in einer späteren Phase.",
+  "dashboardEmptyTitle": "Willkommen",
+  "dashboardEmptyBody": "Richte im Onboarding deinen ersten Weg ein, dann läuft hier dein Zähler."
+}

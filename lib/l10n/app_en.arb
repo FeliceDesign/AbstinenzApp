@@ -1,0 +1,12 @@
+{
+  "@@locale": "en",
+  "appTitle": "Clean Tracker",
+  "navDashboard": "Dashboard",
+  "navCalendar": "Calendar",
+  "navToolkit": "Toolkit",
+  "navStats": "Stats",
+  "navMore": "More",
+  "comingSoon": "This feature arrives in a later phase.",
+  "dashboardEmptyTitle": "Welcome",
+  "dashboardEmptyBody": "Set up your first path in onboarding, then your counter runs here."
+}

@@ -1,0 +1,9 @@
+The bundled fonts are licensed under the SIL Open Font License, Version 1.1.
+
+- Inter — Copyright The Inter Project Authors (https://github.com/rsms/inter)
+- Space Grotesk — Copyright The Space Grotesk Project Authors
+  (https://github.com/floriankarsten/space-grotesk)
+
+Full licence text: https://openfontlicense.org/open-font-license-official-text/
+
+They are bundled locally so the app needs no network access at runtime.
