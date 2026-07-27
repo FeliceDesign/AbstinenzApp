@@ -55,5 +55,33 @@
   "onbBack": "Zurück",
   "onbNext": "Weiter",
   "onbFinish": "Los geht's",
-  "onbIncomplete": "Bitte wähle einen Typ und gib einen Namen ein."
+  "onbIncomplete": "Bitte wähle einen Typ und gib einen Namen ein.",
+
+  "cardMenuRelapse": "Rückfall eintragen",
+  "cleanTotal": "Gesamt clean: {clean} von {tracked} Tagen ({pct}%)",
+
+  "relTitle": "Rückfall erfassen",
+  "relPauseTitle": "Erst mal durchatmen",
+  "relPauseBody": "Ein Rückfall ist ein Datenpunkt, kein Versagen. Bevor du ihn einträgst, gönn dir einen Moment — jetzt muss nichts entschieden werden.",
+  "relWaitHint": "Nicht nie — nur nicht jetzt. Möchtest du 15 Minuten warten?",
+  "relWait15": "15 Minuten warten",
+  "relWaitRemaining": "{time} verbleibend",
+  "relProceed": "Trotzdem erfassen",
+  "relCancel": "Doch nicht nötig",
+
+  "relCaptureTitle": "Was ist passiert?",
+  "relOccurredAt": "Zeitpunkt",
+  "relTrigger": "Auslöser",
+  "relSituation": "Situation",
+  "relAmount": "Menge",
+  "relMood": "Stimmung davor",
+  "relNote": "Notiz — was du gelernt hast, was du nächstes Mal anders machst",
+  "relPlanned": "War geplant",
+  "relNewStart": "Neuer Versuch beginnt",
+  "relNewStartNow": "Auf jetzt setzen",
+  "relSave": "Speichern",
+
+  "relDoneTitle": "Weiter geht's",
+  "relDoneBody": "Eingetragen. Dein Gesamtfortschritt bleibt — nur der aktuelle Streak beginnt neu. Sei nachsichtig mit dir.",
+  "relDoneButton": "Zurück zur Übersicht"
 }

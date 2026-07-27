@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
+import '../../../app/router.dart';
 import '../../../core/db/database.dart';
 import '../../../core/theme/tokens.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../relapse/domain/clean_stats.dart';
 import '../domain/habit_type_x.dart';
 import '../domain/streak_calculator.dart';
 import 'streak_ticker.dart';
@@ -47,6 +50,7 @@ class HabitStreakCard extends ConsumerWidget {
                 active.isNotEmpty ? active.first.startedAt : null;
             final Duration longest = longestStreak(spans, clock.now());
             final int attemptNo = attemptCount(spans);
+            final CleanStats stats = cleanStats(spans, clock.now());
 
             return Column(
               children: [
@@ -65,6 +69,7 @@ class HabitStreakCard extends ConsumerWidget {
                   longestDays: longest.inDays,
                   attemptNo: attemptNo,
                   startedAt: startedAt,
+                  stats: stats,
                 ),
                 const SizedBox(height: AppSpacing.sm),
                 Align(
@@ -99,6 +104,7 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final ThemeData theme = Theme.of(context);
     return Row(
       children: [
@@ -111,6 +117,22 @@ class _Header extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
         ),
+        // Relapse is reached via a low-key overflow menu, never a prominent
+        // button next to the streak (avoids mis-taps).
+        PopupMenuButton<String>(
+          icon: Icon(
+            Icons.more_vert_rounded,
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+          onSelected: (value) {
+            if (value == 'relapse') {
+              context.push('${AppRoutes.relapse}/${habit.id}');
+            }
+          },
+          itemBuilder: (context) => [
+            PopupMenuItem(value: 'relapse', child: Text(l10n.cardMenuRelapse)),
+          ],
+        ),
       ],
     );
   }
@@ -121,11 +143,13 @@ class _Meta extends StatelessWidget {
     required this.longestDays,
     required this.attemptNo,
     required this.startedAt,
+    required this.stats,
   });
 
   final int longestDays;
   final int attemptNo;
   final DateTime? startedAt;
+  final CleanStats stats;
 
   @override
   Widget build(BuildContext context) {
@@ -157,6 +181,16 @@ class _Meta extends StatelessWidget {
               DateFormat.yMMMd(locale).add_Hm().format(startedAt!),
             ),
             style: theme.textTheme.bodySmall,
+          ),
+        ],
+        // History figure — only meaningful once there's been a relapse. Never
+        // resets to zero; it's the sum across all attempts.
+        if (attemptNo > 1) ...[
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            l10n.cleanTotal(stats.cleanDays, stats.trackedDays, stats.percent),
+            textAlign: TextAlign.center,
+            style: theme.textTheme.bodyMedium,
           ),
         ],
       ],

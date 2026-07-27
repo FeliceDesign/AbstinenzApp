@@ -77,5 +77,43 @@
   "onbBack": "Back",
   "onbNext": "Next",
   "onbFinish": "Start",
-  "onbIncomplete": "Please pick a type and enter a name."
+  "onbIncomplete": "Please pick a type and enter a name.",
+
+  "cardMenuRelapse": "Log a relapse",
+  "cleanTotal": "Clean overall: {clean} of {tracked} days ({pct}%)",
+  "@cleanTotal": {
+    "placeholders": {
+      "clean": { "type": "int" },
+      "tracked": { "type": "int" },
+      "pct": { "type": "int" }
+    }
+  },
+
+  "relTitle": "Log a relapse",
+  "relPauseTitle": "Take a breath first",
+  "relPauseBody": "A relapse is a data point, not a failure. Before you log it, give yourself a moment — nothing has to be decided right now.",
+  "relWaitHint": "Not never — just not now. Want to wait 15 minutes?",
+  "relWait15": "Wait 15 minutes",
+  "relWaitRemaining": "{time} remaining",
+  "@relWaitRemaining": {
+    "placeholders": { "time": { "type": "String" } }
+  },
+  "relProceed": "Log it anyway",
+  "relCancel": "Not needed after all",
+
+  "relCaptureTitle": "What happened?",
+  "relOccurredAt": "When",
+  "relTrigger": "Trigger",
+  "relSituation": "Situation",
+  "relAmount": "Amount",
+  "relMood": "Mood beforehand",
+  "relNote": "Note — what you learned, what to try next time",
+  "relPlanned": "This was planned",
+  "relNewStart": "New attempt starts",
+  "relNewStartNow": "Set to now",
+  "relSave": "Save",
+
+  "relDoneTitle": "Onward",
+  "relDoneBody": "Logged. Your overall progress stays — only the current streak restarts. Be kind to yourself.",
+  "relDoneButton": "Back to dashboard"
 }

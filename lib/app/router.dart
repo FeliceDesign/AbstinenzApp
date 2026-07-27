@@ -5,6 +5,7 @@ import '../core/widgets/placeholder_screen.dart';
 import '../features/dashboard/presentation/dashboard_screen.dart';
 import '../features/onboarding/domain/onboarding_gate.dart';
 import '../features/onboarding/presentation/onboarding_screen.dart';
+import '../features/relapse/presentation/relapse_flow_screen.dart';
 import '../l10n/app_localizations.dart';
 
 /// App routes. Declarative and deep-linkable via go_router.
@@ -15,6 +16,7 @@ import '../l10n/app_localizations.dart';
 class AppRoutes {
   const AppRoutes._();
   static const String onboarding = '/onboarding';
+  static const String relapse = '/relapse';
   static const String dashboard = '/';
   static const String calendar = '/calendar';
   static const String toolkit = '/toolkit';
@@ -40,6 +42,12 @@ GoRouter buildRouter(OnboardingGate gate) {
       GoRoute(
         path: AppRoutes.onboarding,
         builder: (context, state) => const OnboardingScreen(),
+      ),
+      GoRoute(
+        path: '${AppRoutes.relapse}/:habitId',
+        builder: (context, state) => RelapseFlowScreen(
+          habitId: int.parse(state.pathParameters['habitId']!),
+        ),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>

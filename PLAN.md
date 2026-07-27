@@ -39,6 +39,19 @@ English.
   - [x] Widget tests: fresh install → onboarding; onboarded → live streak
 - [ ] **Phase 1 follow-ups (deferred by design, noted for later phases):**
       onboarding steps for baseline (Phase 7) and the first "why" (Phase 4).
+- [x] **Phase 2 — Relapse flow + history + "clean days total"**
+  - [x] `RelapseRepository`: close active attempt, record event, open a new
+        attempt — all in one transaction (unit-tested)
+  - [x] Pure `cleanStats` (clean days / tracked days / %) — never resets to
+        zero; unit-tested across a relapse gap
+  - [x] Colourless relapse flow (neutrals only, no signal colour, no red):
+        pause + optional 15-min timer → capture (time, trigger, situation,
+        amount, mood, note, planned) + new-start picker → non-shaming close
+  - [x] Reached via a low-key card overflow menu (not a button by the streak)
+  - [x] "Gesamt clean: X von Y Tagen (Z %)" shown once there's history
+  - [x] Tests: attempt close/open, clean-total across attempts, flow open +
+        cancel. Fixed onboarding bug (type switch now refreshes name/unit) with
+        a regression test. analyze clean, 19 tests green.
 - [ ] **Phase 2** — Relapse flow + history + "clean days total"
 - [ ] **Phase 3** — Urge Toolkit (all techniques) + UrgeEvents
 - [ ] **Phase 4** — Motivation / Why / Benefits + dashboard integration

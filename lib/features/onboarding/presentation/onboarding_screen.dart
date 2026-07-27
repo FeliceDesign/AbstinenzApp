@@ -46,6 +46,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   int _index = 0;
   static const int _lastStep = 2;
 
+  // Last auto-filled defaults. A field is treated as "not user-edited" while it
+  // still equals the value we auto-filled, so switching type refreshes it; once
+  // the user types something else, we stop overwriting their input.
+  String _autoName = '';
+  String _autoUnit = '';
+
   @override
   void dispose() {
     _page.dispose();
@@ -56,17 +62,22 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   void _selectType(HabitType type) {
     final l10n = AppLocalizations.of(context);
-    ref.read(onboardingControllerProvider.notifier).setType(type);
-    // Prefill name/unit with sensible defaults only if the user hasn't typed.
-    if (_name.text.trim().isEmpty) {
-      final String name = habitTypeName(l10n, type);
+    final controller = ref.read(onboardingControllerProvider.notifier);
+    controller.setType(type);
+
+    // Refresh the name/unit fields to the new type's defaults, unless the user
+    // has customised them.
+    final String name = habitTypeName(l10n, type);
+    if (_name.text.trim().isEmpty || _name.text == _autoName) {
       _name.text = name;
-      ref.read(onboardingControllerProvider.notifier).setName(name);
+      _autoName = name;
+      controller.setName(name);
     }
-    if (_unit.text.trim().isEmpty) {
-      final String unit = habitTypeDefaultUnit(l10n, type);
+    final String unit = habitTypeDefaultUnit(l10n, type);
+    if (_unit.text.trim().isEmpty || _unit.text == _autoUnit) {
       _unit.text = unit;
-      ref.read(onboardingControllerProvider.notifier).setUnitLabel(unit);
+      _autoUnit = unit;
+      controller.setUnitLabel(unit);
     }
   }
 
