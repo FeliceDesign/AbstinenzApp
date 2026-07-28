@@ -90,11 +90,11 @@ void main() {
           motivationsByKindProvider(MotivationKind.consequence)
               .overrideWith((ref) => Stream.value([cons])),
         ],
-        child: MaterialApp(
-          locale: const Locale('de'),
+        child: const MaterialApp(
+          locale: Locale('de'),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          home: const Scaffold(
+          home: Scaffold(
             body: MotivationRecall(showConsequences: true, showWhy: true),
           ),
         ),
