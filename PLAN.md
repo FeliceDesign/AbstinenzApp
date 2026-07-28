@@ -86,7 +86,27 @@ English.
         why, MotivationRecall lists why+consequences. analyze clean, 33 green.
 - [ ] **Phase 4 follow-ups:** optional photo per motivation (deferred to keep
       the no-extra-permissions guarantee), user-defined distraction list.
-- [ ] **Phase 5** — Mood + Check-in + charts
+- [x] **Phase 5 — Mood + Check-in + charts**
+  - [x] `MoodRepository`: one entry per calendar day (query-then-upsert around
+        the `date` UNIQUE key), reactive + one-shot reads (unit-tested)
+  - [x] `CheckinRepository`: one check-in per habit per day, back-datable
+        (`date` = the day, `completedAt` = now); re-save updates in place (tested)
+  - [x] Pure domain: `checkin_questions` (typed, configurable set incl. the
+        1–10 urge scale), `checkin_streak` (gentle, DST-safe), `mood_stats`
+        (series, averages, urge-vs-calm and around-relapse observations) — tested
+  - [x] Mood entry screen: 1–5 faces (face + colour + label, never colour
+        alone), energy/sleep scales, tags, note; last-7-days back-fill selector
+  - [x] Check-in flow: one short form; a "no" to "clean today?" gently offers
+        the relapse flow (never forces it); last-7-days back-fill
+  - [x] Stats tab (replaces placeholder): mood line chart (`fl_chart`, 7/30/90),
+        average, gentle check-in streak, honest non-clinical observations with a
+        "not a diagnosis" note, and the urge insights (waves + what works)
+  - [x] Dashboard: 7-day mood sparkline card (hand-drawn) + check-in card
+        (done/open + streak)
+  - [x] Tests: mood_stats, checkin_streak, mood & check-in repositories, stats
+        empty-state widget smoke test
+- [ ] **Phase 5 follow-ups:** low-mood safety nudge to the help screen (Phase 9,
+      once the help screen lands), notification for the daily check-in (Phase 8).
 - [ ] **Phase 6** — Calendar heatmap + day detail
 - [ ] **Phase 7** — Savings + calories + saving goals (versioned baselines)
 - [ ] **Phase 8** — Milestones + notifications + share graphic

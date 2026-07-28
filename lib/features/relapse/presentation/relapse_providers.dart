@@ -18,3 +18,8 @@ RelapseRepository relapseRepository(RelapseRepositoryRef ref) =>
 @riverpod
 Stream<List<RelapseEvent>> habitRelapses(HabitRelapsesRef ref, int habitId) =>
     ref.watch(relapseRepositoryProvider).watchRelapses(habitId);
+
+/// Every relapse across habits — used by the mood correlation on the stats tab.
+@riverpod
+Stream<List<RelapseEvent>> allRelapses(AllRelapsesRef ref) =>
+    ref.watch(relapseRepositoryProvider).watchAllRelapses();

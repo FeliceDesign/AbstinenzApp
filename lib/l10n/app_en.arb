@@ -225,5 +225,127 @@
   "benGamTime": "More free time",
   "benGamPosture": "Better posture",
   "benPornPresence": "Being more present",
-  "benPornConnection": "Closer real connections"
+  "benPornConnection": "Closer real connections",
+
+  "fieldOptional": "optional",
+  "dateToday": "Today",
+  "commonYes": "Yes",
+  "commonNo": "No",
+
+  "moodEntryTitle": "How are you?",
+  "moodScoreLabel": "Mood",
+  "moodEnergyLabel": "Energy",
+  "moodSleepLabel": "Sleep",
+  "moodTagsLabel": "Tags",
+  "moodNoteLabel": "Note",
+  "moodNoteHint": "Anything you want to remember about today…",
+  "moodSave": "Save",
+  "moodSaved": "Saved",
+  "moodBackfillHint": "You can fill in the last 7 days — no pressure for missed ones.",
+
+  "moodFace1": "Very low",
+  "moodFace2": "Low",
+  "moodFace3": "Okay",
+  "moodFace4": "Good",
+  "moodFace5": "Very good",
+
+  "moodTagProud": "proud",
+  "moodTagRelaxed": "relaxed",
+  "moodTagCalm": "calm",
+  "moodTagMotivated": "motivated",
+  "moodTagIrritable": "irritable",
+  "moodTagAnxious": "anxious",
+  "moodTagLonely": "lonely",
+  "moodTagTired": "tired",
+
+  "dashMoodTitle": "Mood",
+  "dashMoodEmpty": "Log how you feel today.",
+  "dashMoodSemantics": "Mood over the last {count} days",
+  "@dashMoodSemantics": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+
+  "checkinTitle": "Check-in",
+  "checkinSave": "Save check-in",
+  "checkinSaved": "Check-in saved",
+  "checkinBackfillHint": "You can fill in the last 7 days — a missed day is not a debt.",
+  "checkinNoHabit": "Set up a habit first, then your daily check-in appears here.",
+  "checkinFreeTextHint": "In your own words…",
+  "checkinStreakLabel": "{count, plural, =1{1 check-in in a row} other{# check-ins in a row}}",
+  "@checkinStreakLabel": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "checkinRelapseOfferBody": "Want to note what happened? You can log it now, or come back to it later.",
+  "checkinRelapseOfferButton": "Log a relapse",
+
+  "dashCheckinTitle": "Daily check-in",
+  "dashCheckinDone": "Done for today",
+  "dashCheckinOpen": "Open — tap to fill it in",
+
+  "qCleanToday": "Did you stay clean today?",
+  "qUrgeStrength": "How strong was your urge today?",
+  "qHelped": "What helped today?",
+  "qTrigger": "Was there a trigger?",
+  "qTriggerNote": "Trigger — in your words",
+  "qFutureSelf": "A line to your future self",
+
+  "optSport": "Sport",
+  "optFriends": "Friends",
+  "optWork": "Work",
+  "optSleep": "Sleep",
+  "optBreathing": "Breathing",
+  "optNature": "Nature",
+  "optMusic": "Music",
+
+  "trgStress": "Stress",
+  "trgBoredom": "Boredom",
+  "trgSocial": "Social",
+  "trgEmotions": "Emotions",
+  "trgHabit": "Habit",
+  "trgCelebration": "Celebration",
+
+  "statsTitle": "Stats",
+  "statsMoodSection": "Mood over time",
+  "statsRange7": "7 days",
+  "statsRange30": "30 days",
+  "statsRange90": "90 days",
+  "statsMoodEmpty": "No mood entries yet. Add one and your trend appears here.",
+  "statsAvgMood": "Average: {value}",
+  "@statsAvgMood": {
+    "placeholders": { "value": { "type": "String" } }
+  },
+  "statsCheckinNone": "No check-ins yet — the daily card on your dashboard starts the streak.",
+  "statsObservationsTitle": "Observations",
+  "statsObservationDisclaimer": "These are observations, not a diagnosis.",
+  "statsMoodUrge": "On days with an urge your mood averaged {withUrge}; on other days {without}.",
+  "@statsMoodUrge": {
+    "placeholders": {
+      "withUrge": { "type": "String" },
+      "without": { "type": "String" }
+    }
+  },
+  "statsMoodUrgeEmpty": "Once you log your mood on days with and without an urge, a comparison shows here.",
+  "statsAroundRelapse": "Around harder days, your mood averaged {before} the day before and {after} the day after.",
+  "@statsAroundRelapse": {
+    "placeholders": {
+      "before": { "type": "String" },
+      "after": { "type": "String" }
+    }
+  },
+  "statsAroundRelapseEmpty": "When there are mood entries near a logged relapse, the pattern appears here.",
+  "statsUrgeSection": "Urges",
+  "statsUrgeEmpty": "Ride out an urge with the toolkit and your progress shows here.",
+  "statsWaves": "{count, plural, =1{1 wave ridden out} other{# waves ridden out}}",
+  "@statsWaves": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "statsWhatWorks": "What works best for you",
+  "statsTechniqueEffect": "{technique}: −{value} on average ({uses}×)",
+  "@statsTechniqueEffect": {
+    "placeholders": {
+      "technique": { "type": "String" },
+      "value": { "type": "String" },
+      "uses": { "type": "int" }
+    }
+  }
 }

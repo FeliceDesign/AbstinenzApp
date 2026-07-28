@@ -63,5 +63,12 @@ class RelapseRepository {
         .watch();
   }
 
+  /// Every relapse across all habits (for mood-around-relapse correlation).
+  Stream<List<RelapseEvent>> watchAllRelapses() {
+    return (_db.select(_db.relapseEvents)
+          ..orderBy([(r) => OrderingTerm.desc(r.occurredAt)]))
+        .watch();
+  }
+
   DateTime now() => _clock.now();
 }

@@ -34,6 +34,15 @@ String techniqueName(AppLocalizations l10n, UrgeTechnique t) => switch (t) {
       UrgeTechnique.emergencyContact => l10n.techEmergencyContact,
     };
 
+/// Resolves a persisted technique key (an [UrgeTechnique.name]) to its
+/// localized label. Falls back to the raw key for unknown values.
+String techniqueNameByKey(AppLocalizations l10n, String key) {
+  for (final UrgeTechnique t in UrgeTechnique.values) {
+    if (t.name == key) return techniqueName(l10n, t);
+  }
+  return key;
+}
+
 // --- Urge surfing ------------------------------------------------------------
 
 class _UrgeSurfing extends StatefulWidget {

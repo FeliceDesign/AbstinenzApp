@@ -20,6 +20,9 @@ dependencies:
   # Navigation
   go_router: ^14.2.7
 
+  # Charts (mood history)
+  fl_chart: ^0.69.0
+
   # Persistence
   drift: ^2.19.1
   sqlite3_flutter_libs: ^0.5.24

@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/widgets/placeholder_screen.dart';
+import '../features/checkin/presentation/checkin_screen.dart';
 import '../features/dashboard/presentation/dashboard_screen.dart';
+import '../features/mood/presentation/mood_entry_screen.dart';
 import '../features/onboarding/domain/onboarding_gate.dart';
 import '../features/onboarding/presentation/onboarding_screen.dart';
 import '../features/more/presentation/more_screen.dart';
 import '../features/motivation/presentation/future_letter_screen.dart';
 import '../features/motivation/presentation/motivation_screen.dart';
 import '../features/relapse/presentation/relapse_flow_screen.dart';
+import '../features/stats/presentation/stats_screen.dart';
 import '../features/urge/presentation/urge_fab.dart';
 import '../features/urge/presentation/urge_flow_screen.dart';
 import '../l10n/app_localizations.dart';
@@ -67,6 +70,14 @@ GoRouter buildRouter(OnboardingGate gate) {
         path: '/future-letter',
         builder: (context, state) => const FutureLetterScreen(),
       ),
+      GoRoute(
+        path: '/mood-entry',
+        builder: (context, state) => const MoodEntryScreen(),
+      ),
+      GoRoute(
+        path: '/checkin',
+        builder: (context, state) => const CheckinScreen(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
             _ScaffoldWithNav(navigationShell: navigationShell),
@@ -107,11 +118,7 @@ GoRouter buildRouter(OnboardingGate gate) {
             routes: [
               GoRoute(
                 path: AppRoutes.stats,
-                builder: (context, state) => PlaceholderScreen(
-                  title: AppLocalizations.of(context).navStats,
-                  icon: Icons.insights_rounded,
-                  message: AppLocalizations.of(context).comingSoon,
-                ),
+                builder: (context, state) => const StatsScreen(),
               ),
             ],
           ),

@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/db/database.dart';
 import '../../../core/theme/tokens.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../checkin/presentation/checkin_card.dart';
+import '../../mood/presentation/mood_sparkline.dart';
 import '../../motivation/presentation/motivation_widgets.dart';
 import '../../tracker/presentation/habit_streak_card.dart';
 import '../../tracker/presentation/tracker_providers.dart';
@@ -65,6 +67,24 @@ class DashboardScreen extends ConsumerWidget {
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: AppSpacing.xl),
                     child: DashboardWhyCard(),
+                  ),
+                ),
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: AppSpacing.lg),
+                ),
+                const SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: AppSpacing.xl),
+                    child: DashboardCheckinCard(),
+                  ),
+                ),
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: AppSpacing.lg),
+                ),
+                const SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: AppSpacing.xl),
+                    child: DashboardMoodCard(),
                   ),
                 ),
                 const SliverToBoxAdapter(
