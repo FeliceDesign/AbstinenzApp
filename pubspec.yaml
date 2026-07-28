@@ -54,12 +54,13 @@ dependencies:
 # build. Pin to the last pre-JNI release until the ecosystem catches up.
 #
 # flutter_plugin_android_lifecycle (pulled by file_picker + local_auth) bumped
-# its AAR metadata to require compileSdk 36, which the plugin modules (fixed at
-# Flutter's compileSdk 34) can't satisfy. Pin it to a pre-36 release so every
-# plugin builds against 34 again.
+# its AAR metadata to require compileSdk 35 at 2.0.25, which the plugin modules
+# (fixed at Flutter's compileSdk 34) can't satisfy. 2.0.17 is too old (still
+# ships the v1 embedding Registrar, removed at 2.0.20). Pin to 2.0.23: past the
+# v1 removal, still compileSdk 34, so every plugin builds against 34 again.
 dependency_overrides:
   path_provider_android: 2.2.23
-  flutter_plugin_android_lifecycle: 2.0.17
+  flutter_plugin_android_lifecycle: 2.0.23
 
 dev_dependencies:
   flutter_test:
