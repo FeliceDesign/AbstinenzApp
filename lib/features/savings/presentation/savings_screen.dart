@@ -76,13 +76,17 @@ class SavingsScreen extends ConsumerWidget {
                     locale: locale,
                   ),
                   const SizedBox(height: AppSpacing.xxl),
-                  Text(l10n.savBaselinesTitle,
-                      style: Theme.of(context).textTheme.headlineMedium),
+                  Text(
+                    l10n.savBaselinesTitle,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
                   const SizedBox(height: AppSpacing.md),
                   for (final Habit h in habits) _BaselineRow(habit: h),
                   const SizedBox(height: AppSpacing.xxl),
-                  Text(l10n.savGoalsTitle,
-                      style: Theme.of(context).textTheme.headlineMedium),
+                  Text(
+                    l10n.savGoalsTitle,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
                   const SizedBox(height: AppSpacing.md),
                   _Goals(saved: base, perDay: perDay, currency: currency),
                 ],
@@ -378,7 +382,7 @@ class _GoalCard extends StatelessWidget {
             Row(
               children: <Widget>[
                 if (progress.reached)
-                  Icon(
+                  const Icon(
                     Icons.check_circle_rounded,
                     size: 16,
                     color: AppColors.brandGold,

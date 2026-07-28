@@ -69,8 +69,10 @@ SavingsResult computeSavings({
   if (baselines.isEmpty || cleanSpans.isEmpty) return SavingsResult.zero;
 
   final List<BaselineVersion> sorted = List<BaselineVersion>.of(baselines)
-    ..sort((BaselineVersion a, BaselineVersion b) =>
-        a.validFrom.compareTo(b.validFrom));
+    ..sort(
+      (BaselineVersion a, BaselineVersion b) =>
+          a.validFrom.compareTo(b.validFrom),
+    );
 
   double money = 0;
   double calories = 0;
@@ -202,11 +204,7 @@ GoalProgress goalProgress({
   }
   final double remaining = target - saved;
   if (remaining <= 0) {
-    return GoalProgress(
-      fraction: 1,
-      remaining: 0,
-      reached: true,
-    );
+    return const GoalProgress(fraction: 1, remaining: 0, reached: true);
   }
   final double fraction = (saved / target).clamp(0.0, 1.0);
   final int? daysToReach = perDay > 0 ? (remaining / perDay).ceil() : null;

@@ -61,14 +61,18 @@ class CaloriesScreen extends ConsumerWidget {
                           fontFeatures: AppFonts.tabular,
                         ),
                       ),
-                      Text(l10n.calNotConsumed,
-                          style: theme.textTheme.bodyMedium),
+                      Text(
+                        l10n.calNotConsumed,
+                        style: theme.textTheme.bodyMedium,
+                      ),
                       const SizedBox(height: AppSpacing.xxl),
                       if (equivalents.isNotEmpty) ...<Widget>[
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(l10n.calEquivTitle,
-                              style: theme.textTheme.labelMedium),
+                          child: Text(
+                            l10n.calEquivTitle,
+                            style: theme.textTheme.labelMedium,
+                          ),
                         ),
                         const SizedBox(height: AppSpacing.sm),
                         for (final CalorieEquivalent e in equivalents)
