@@ -7,7 +7,7 @@
          notifications are scheduled inexactly, which is fine for the use case. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <application
-        android:label="Clean Tracker"
+        android:label="Chainless"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

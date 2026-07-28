@@ -3,12 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/theme/app_theme.dart';
 import '../features/onboarding/domain/onboarding_gate.dart';
+import '../features/settings/presentation/settings_providers.dart';
 import '../l10n/app_localizations.dart';
 import 'router.dart';
-
-/// App-wide theme mode. Dark is the design default; persistence to
-/// shared_preferences is wired up in the settings phase.
-final themeModeProvider = StateProvider<ThemeMode>((ref) => ThemeMode.dark);
 
 /// The router is created once and kept alive for the app's lifetime.
 final routerProvider = Provider((ref) {
@@ -20,7 +17,7 @@ class CleanTrackerApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ThemeMode mode = ref.watch(themeModeProvider);
+    final ThemeMode mode = ref.watch(themeModeSettingProvider);
     return MaterialApp.router(
       onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
       debugShowCheckedModeBanner: false,

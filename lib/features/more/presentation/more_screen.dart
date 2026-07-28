@@ -39,6 +39,19 @@ class MoreScreen extends StatelessWidget {
             trailing: const Icon(Icons.chevron_right_rounded),
             onTap: () => context.push('/future-letter'),
           ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.support_rounded),
+            title: Text(l10n.helpTitle),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/help'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings_outlined),
+            title: Text(l10n.settingsTitle),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/settings'),
+          ),
         ],
       ),
     );

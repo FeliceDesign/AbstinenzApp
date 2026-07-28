@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "appTitle": "Clean Tracker",
+  "appTitle": "Chainless",
 
   "navDashboard": "Übersicht",
   "navCalendar": "Kalender",
@@ -38,7 +38,7 @@
   "unitPorn": "Sitzung",
   "unitOther": "Einheit",
 
-  "onbWelcomeTitle": "Willkommen bei Clean Tracker",
+  "onbWelcomeTitle": "Willkommen bei Chainless",
   "onbWelcomeBody": "Ein ruhiger, privater Ort für deine clean-Zeit. Alles bleibt auf deinem Gerät — kein Konto, keine Cloud.",
   "onbDisclaimer": "Diese App ist kein medizinisches Produkt und ersetzt keine ärztliche oder therapeutische Behandlung.",
   "onbAlcoholWarning": "Abruptes Absetzen von Alkohol kann medizinisch gefährlich sein (Krampfanfälle, Delir). Bitte hole vorher ärztlichen Rat ein.",
@@ -374,5 +374,30 @@
   "msCan1m": "Rauchbedingte Reizung der Lunge lässt nach",
   "msSug3d": "Dein Geschmackssinn wird feiner",
   "msSug1w": "Gleichmäßigere Energie und weniger Heißhunger",
-  "msSug1m": "Ausgeglichenere Stimmung und klarere Haut"
+  "msSug1m": "Ausgeglichenere Stimmung und klarere Haut",
+
+  "settingsTitle": "Einstellungen",
+  "setAppearance": "Darstellung",
+  "setThemeSystem": "System",
+  "setThemeLight": "Hell",
+  "setThemeDark": "Dunkel",
+  "setCounters": "Zähler",
+  "setShowCalories": "Kalorien-Zähler anzeigen",
+  "setSafety": "Sicherheit",
+  "setDisclaimerTitle": "Kein medizinisches Produkt",
+  "setMedicalTitle": "Bevor du aufhörst",
+  "setPrivacy": "Datenschutz",
+  "setPrivacyTitle": "Alles bleibt auf deinem Gerät",
+  "setPrivacyBody": "Kein Konto, keine Cloud, keine Analyse. Der Release-Build kommt ohne Internet-Berechtigung — deine Daten können das Handy nicht verlassen.",
+  "setData": "Daten",
+  "setDeleteTitle": "Alle Daten löschen",
+  "setDeleteBody": "Entfernt jeden Weg, Eintrag und jede Notiz von diesem Gerät.",
+  "setDeleteConfirm1": "Das löscht alles auf diesem Gerät endgültig und kann nicht rückgängig gemacht werden. Fortfahren?",
+  "setDeleteContinue": "Weiter",
+  "setDeleteConfirm2Title": "Bist du sicher?",
+  "setDeleteConfirm2": "Letzte Prüfung — das löscht alle deine Daten unwiderruflich.",
+  "setDeleteButton": "Alles löschen",
+
+  "helpTitle": "Hilfe & Notfallkontakte",
+  "helpIntro": "Du musst das nicht allein durchstehen. In einer Krise ist es Stärke, sich zu melden — ein Tippen wählt eine Nummer."
 }

@@ -31,7 +31,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('Willkommen bei Clean Tracker'), findsOneWidget);
+    expect(find.text('Willkommen bei Chainless'), findsOneWidget);
     expect(find.text('Übersicht'), findsNothing); // nav not shown yet
   });
 

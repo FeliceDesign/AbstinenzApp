@@ -15,6 +15,8 @@ import '../features/motivation/presentation/future_letter_screen.dart';
 import '../features/motivation/presentation/motivation_screen.dart';
 import '../features/relapse/presentation/relapse_flow_screen.dart';
 import '../features/savings/presentation/calories_screen.dart';
+import '../features/settings/presentation/help_screen.dart';
+import '../features/settings/presentation/settings_screen.dart';
 import '../features/savings/presentation/savings_screen.dart';
 import '../features/stats/presentation/stats_screen.dart';
 import '../features/urge/presentation/urge_fab.dart';
@@ -94,6 +96,14 @@ GoRouter buildRouter(OnboardingGate gate) {
       GoRoute(
         path: '/milestones',
         builder: (context, state) => const MilestonesScreen(),
+      ),
+      GoRoute(
+        path: '/settings',
+        builder: (context, state) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: '/help',
+        builder: (context, state) => const HelpScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>

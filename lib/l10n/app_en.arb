@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "appTitle": "Clean Tracker",
+  "appTitle": "Chainless",
   "@appTitle": {
     "description": "The application name shown in the launcher and app bar."
   },
@@ -60,7 +60,7 @@
   "unitPorn": "session",
   "unitOther": "unit",
 
-  "onbWelcomeTitle": "Welcome to Clean Tracker",
+  "onbWelcomeTitle": "Welcome to Chainless",
   "onbWelcomeBody": "A calm, private space to track your clean time. Everything stays on your device — no account, no cloud.",
   "onbDisclaimer": "This app is not a medical product and does not replace medical or therapeutic care.",
   "onbAlcoholWarning": "Stopping alcohol abruptly can be medically dangerous (seizures, delirium). Please seek medical advice before quitting.",
@@ -473,5 +473,30 @@
   "msCan1m": "Smoking-related lung irritation eases",
   "msSug3d": "Your sense of taste sharpens",
   "msSug1w": "Steadier energy and fewer cravings",
-  "msSug1m": "Steadier mood and clearer skin"
+  "msSug1m": "Steadier mood and clearer skin",
+
+  "settingsTitle": "Settings",
+  "setAppearance": "Appearance",
+  "setThemeSystem": "System",
+  "setThemeLight": "Light",
+  "setThemeDark": "Dark",
+  "setCounters": "Counters",
+  "setShowCalories": "Show calorie counter",
+  "setSafety": "Safety",
+  "setDisclaimerTitle": "Not a medical product",
+  "setMedicalTitle": "Before you stop",
+  "setPrivacy": "Privacy",
+  "setPrivacyTitle": "Everything stays on your device",
+  "setPrivacyBody": "No account, no cloud, no analytics. The release build ships without the internet permission, so your data can't leave the phone.",
+  "setData": "Data",
+  "setDeleteTitle": "Delete all data",
+  "setDeleteBody": "Removes every habit, entry and note from this device.",
+  "setDeleteConfirm1": "This permanently deletes everything on this device and can't be undone. Continue?",
+  "setDeleteContinue": "Continue",
+  "setDeleteConfirm2Title": "Are you sure?",
+  "setDeleteConfirm2": "Last check — this erases all your data for good.",
+  "setDeleteButton": "Delete everything",
+
+  "helpTitle": "Help & emergency contacts",
+  "helpIntro": "You don't have to do this alone. If you're in a crisis, reaching out is a strength — one tap dials a number."
 }
