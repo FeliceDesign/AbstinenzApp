@@ -6,6 +6,8 @@ import '../features/dashboard/presentation/dashboard_screen.dart';
 import '../features/onboarding/domain/onboarding_gate.dart';
 import '../features/onboarding/presentation/onboarding_screen.dart';
 import '../features/relapse/presentation/relapse_flow_screen.dart';
+import '../features/urge/presentation/urge_fab.dart';
+import '../features/urge/presentation/urge_flow_screen.dart';
 import '../l10n/app_localizations.dart';
 
 /// App routes. Declarative and deep-linkable via go_router.
@@ -17,6 +19,7 @@ class AppRoutes {
   const AppRoutes._();
   static const String onboarding = '/onboarding';
   static const String relapse = '/relapse';
+  static const String urge = '/urge';
   static const String dashboard = '/';
   static const String calendar = '/calendar';
   static const String toolkit = '/toolkit';
@@ -48,6 +51,10 @@ GoRouter buildRouter(OnboardingGate gate) {
         builder: (context, state) => RelapseFlowScreen(
           habitId: int.parse(state.pathParameters['habitId']!),
         ),
+      ),
+      GoRoute(
+        path: AppRoutes.urge,
+        builder: (context, state) => const UrgeFlowScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
@@ -125,6 +132,7 @@ class _ScaffoldWithNav extends StatelessWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     return Scaffold(
       body: navigationShell,
+      floatingActionButton: const UrgeFab(),
       bottomNavigationBar: NavigationBar(
         selectedIndex: navigationShell.currentIndex,
         onDestinationSelected: (index) => navigationShell.goBranch(

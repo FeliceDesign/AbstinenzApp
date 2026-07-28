@@ -53,7 +53,22 @@ English.
         cancel. Fixed onboarding bug (type switch now refreshes name/unit) with
         a regression test. analyze clean, 19 tests green.
 - [ ] **Phase 2** — Relapse flow + history + "clean days total"
-- [ ] **Phase 3** — Urge Toolkit (all techniques) + UrgeEvents
+- [x] **Phase 3 — Urge Toolkit (all techniques) + UrgeEvents**
+  - [x] Persistent berry FAB ("Verlangen") on every main screen — berry's
+        exclusive home; opens `/urge`
+  - [x] Before/after measurement: intensity slider (1–10) starts a UrgeEvent →
+        technique → intensity slider ends it (`intensityEnd`, `survived`)
+  - [x] All seven techniques: urge surfing (3-min guided), 4-7-8 breathing
+        (animated circle + haptics), 15-minute rule (countdown), 5-4-3-2-1
+        grounding (wizard), play-the-tape (Phase 4 will inject real reasons),
+        distraction (random suggestion), emergency contact (tel: via
+        url_launcher, DE help numbers in `core/safety`)
+  - [x] Reward loop: "Du hast eine Welle überstanden. Das war Nr. N."
+  - [x] Pure `urge_stats` (waves ridden, per-technique effectiveness) — tested
+  - [x] Tests: stats domain, repository start/complete, FAB opens flow.
+        analyze clean, 25 tests green.
+- [ ] **Phase 3 follow-ups:** OS notification for the 15-min rule (Phase 8),
+      user-defined distraction list (Phase 4/settings), per-habit urge tagging.
 - [ ] **Phase 4** — Motivation / Why / Benefits + dashboard integration
 - [ ] **Phase 5** — Mood + Check-in + charts
 - [ ] **Phase 6** — Calendar heatmap + day detail

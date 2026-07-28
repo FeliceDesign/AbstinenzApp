@@ -115,5 +115,68 @@
 
   "relDoneTitle": "Onward",
   "relDoneBody": "Logged. Your overall progress stays — only the current streak restarts. Be kind to yourself.",
-  "relDoneButton": "Back to dashboard"
+  "relDoneButton": "Back to dashboard",
+
+  "urgeFab": "Urge",
+  "urgeTitle": "I have an urge",
+  "urgeIntensityStartTitle": "How strong is the urge right now?",
+  "urgeIntensityEndTitle": "And now — how strong is it?",
+  "urgeScaleLow": "barely",
+  "urgeScaleHigh": "very strong",
+  "urgeChooseTechnique": "Choose a technique",
+  "urgeNext": "Next",
+  "urgeStart": "Start",
+  "urgeFinish": "Done",
+  "urgeCelebrateTitle": "You rode out a wave.",
+  "urgeCelebrateCount": "That was #{n}",
+  "@urgeCelebrateCount": {
+    "placeholders": { "n": { "type": "int" } }
+  },
+  "urgeReductionDown": "Intensity dropped from {from} to {to}",
+  "@urgeReductionDown": {
+    "placeholders": {
+      "from": { "type": "int" },
+      "to": { "type": "int" }
+    }
+  },
+  "urgeReductionHeld": "You held on.",
+  "urgeClose": "Close",
+
+  "techUrgeSurfing": "Urge surfing",
+  "techBreathing478": "4-7-8 breathing",
+  "techFifteenMinute": "15-minute rule",
+  "techGrounding": "5-4-3-2-1 grounding",
+  "techPlayTheTape": "Play the tape forward",
+  "techDistraction": "Distraction",
+  "techEmergencyContact": "Emergency contact",
+
+  "surfLine1": "Notice the urge like a wave. It is rising.",
+  "surfLine2": "Stay with it. Breathe. It peaks — and starts to fall.",
+  "surfLine3": "The wave passes. You didn't have to act on it.",
+  "breatheIn": "Breathe in",
+  "breatheHold": "Hold",
+  "breatheOut": "Breathe out",
+  "breatheHint": "In for 4, hold for 7, out for 8.",
+  "fifteenHint": "Not never — just not now. Give it 15 minutes.",
+  "groundSee": "5 things you can see",
+  "groundHear": "4 things you can hear",
+  "groundFeel": "3 things you can feel",
+  "groundSmell": "2 things you can smell",
+  "groundTaste": "1 thing you can taste",
+  "groundDone": "Back in the here and now.",
+  "tapeBody": "Play it forward: how would you feel an hour after giving in? Tomorrow morning? Your reasons will appear here once you add them under Motivation.",
+  "distractHint": "How about…",
+  "distractAnother": "Another one",
+  "distract1": "Take a short walk",
+  "distract2": "Drink a glass of water",
+  "distract3": "Message a friend",
+  "distract4": "Do 10 push-ups",
+  "distract5": "Take a cold shower",
+  "distract6": "Make a cup of tea",
+  "emergencyHint": "You don't have to do this alone. Tap to call.",
+  "emergencyCallError": "Couldn't start the call.",
+  "helpTelefonseelsorge1": "Telefonseelsorge (free)",
+  "helpTelefonseelsorge2": "Telefonseelsorge (free, alt.)",
+  "helpSuchtHotline": "Addiction & drugs hotline",
+  "helpEmergency": "Emergency"
 }

@@ -27,6 +27,9 @@ dependencies:
   path: ^1.9.0
   shared_preferences: ^2.3.2
 
+  # Launch tel: for the emergency-contact urge technique
+  url_launcher: ^6.3.0
+
   # Formatting / i18n
   intl: any
 
