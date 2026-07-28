@@ -5,6 +5,9 @@ import '../core/widgets/placeholder_screen.dart';
 import '../features/dashboard/presentation/dashboard_screen.dart';
 import '../features/onboarding/domain/onboarding_gate.dart';
 import '../features/onboarding/presentation/onboarding_screen.dart';
+import '../features/more/presentation/more_screen.dart';
+import '../features/motivation/presentation/future_letter_screen.dart';
+import '../features/motivation/presentation/motivation_screen.dart';
 import '../features/relapse/presentation/relapse_flow_screen.dart';
 import '../features/urge/presentation/urge_fab.dart';
 import '../features/urge/presentation/urge_flow_screen.dart';
@@ -55,6 +58,14 @@ GoRouter buildRouter(OnboardingGate gate) {
       GoRoute(
         path: AppRoutes.urge,
         builder: (context, state) => const UrgeFlowScreen(),
+      ),
+      GoRoute(
+        path: '/motivation',
+        builder: (context, state) => const MotivationScreen(),
+      ),
+      GoRoute(
+        path: '/future-letter',
+        builder: (context, state) => const FutureLetterScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
@@ -108,11 +119,7 @@ GoRouter buildRouter(OnboardingGate gate) {
             routes: [
               GoRoute(
                 path: AppRoutes.more,
-                builder: (context, state) => PlaceholderScreen(
-                  title: AppLocalizations.of(context).navMore,
-                  icon: Icons.more_horiz_rounded,
-                  message: AppLocalizations.of(context).comingSoon,
-                ),
+                builder: (context, state) => const MoreScreen(),
               ),
             ],
           ),

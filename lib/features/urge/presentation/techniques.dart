@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../core/safety/help_contacts.dart';
 import '../../../core/theme/tokens.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../motivation/presentation/motivation_widgets.dart';
 import '../domain/urge_technique.dart';
 
 /// Renders the content for a chosen [UrgeTechnique]. Each technique is
@@ -322,22 +323,23 @@ class _PlayTheTape extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    // Real "why"/"consequence" content is injected once the motivation feature
-    // (Phase 4) exists; until then, a guided prompt.
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    // Shows the user's own consequences + why (Phase 4 integration); falls back
+    // to a guided prompt when nothing has been entered yet.
+    return ListView(
       children: [
         Icon(
           Icons.movie_outlined,
           size: 48,
           color: theme.colorScheme.onSurfaceVariant,
         ),
-        const SizedBox(height: AppSpacing.xl),
+        const SizedBox(height: AppSpacing.lg),
         Text(
           l10n.tapeBody,
           textAlign: TextAlign.center,
           style: theme.textTheme.bodyLarge,
         ),
+        const SizedBox(height: AppSpacing.xl),
+        const MotivationRecall(showConsequences: true, showWhy: true),
       ],
     );
   }

@@ -69,7 +69,23 @@ English.
         analyze clean, 25 tests green.
 - [ ] **Phase 3 follow-ups:** OS notification for the 15-min rule (Phase 8),
       user-defined distraction list (Phase 4/settings), per-habit urge tagging.
-- [ ] **Phase 4** — Motivation / Why / Benefits + dashboard integration
+- [x] **Phase 4 — Motivation / Why / Benefits + flow integration**
+  - [x] Schema **v2** migration: `Motivations.noticedAt` (addColumn onUpgrade)
+  - [x] `MotivationRepository`: add / edit / pin / reorder / delete; benefits
+        markable "noticed" with date (unit-tested)
+  - [x] Manage screen: Why / Benefits / Consequences tabs, drag-reorder, pin,
+        benefit presets per habit type (tap to adopt) + "already noticed" list
+  - [x] "Letter to my future self" (free text in shared_preferences)
+  - [x] Daily "your why" quote card on the dashboard (deterministic per day —
+        pure `pickDaily`, tested)
+  - [x] **Integration (DoD):** the person's own words appear in the relapse
+        pause (why + benefits) and the urge "play the tape" technique
+        (consequences + why)
+  - [x] "More" tab is now a real menu (Motivation, Future letter)
+  - [x] Tests: daily-pick, repository add/pin/reorder/notice, relapse-flow shows
+        why, MotivationRecall lists why+consequences. analyze clean, 33 green.
+- [ ] **Phase 4 follow-ups:** optional photo per motivation (deferred to keep
+      the no-extra-permissions guarantee), user-defined distraction list.
 - [ ] **Phase 5** — Mood + Check-in + charts
 - [ ] **Phase 6** — Calendar heatmap + day detail
 - [ ] **Phase 7** — Savings + calories + saving goals (versioned baselines)

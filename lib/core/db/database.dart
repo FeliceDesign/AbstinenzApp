@@ -117,6 +117,10 @@ class Motivations extends Table {
   TextColumn get kind => textEnum<MotivationKind>()();
   IntColumn get sortOrder => integer().withDefault(const Constant(0))();
   BoolColumn get isPinned => boolean().withDefault(const Constant(false))();
+
+  /// For `benefit` entries: when the user marked it as "already noticed".
+  /// Null = not yet noticed. Added in schema v2.
+  DateTimeColumn get noticedAt => dateTime().nullable()();
 }
 
 /// Versioned baseline consumption, used for savings and calorie counters.
@@ -155,12 +159,18 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.executor);
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
         onCreate: (Migrator m) async {
           await m.createAll();
+        },
+        onUpgrade: (Migrator m, int from, int to) async {
+          // v2: benefits can be marked "already noticed" with a date.
+          if (from < 2) {
+            await m.addColumn(motivations, motivations.noticedAt);
+          }
         },
         beforeOpen: (details) async {
           // Enforce foreign keys — off by default in SQLite.

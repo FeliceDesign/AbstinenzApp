@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/theme/tokens.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../motivation/presentation/motivation_widgets.dart';
 import '../../tracker/presentation/tracker_providers.dart';
 import 'relapse_controller.dart';
 
@@ -150,6 +151,9 @@ class _PauseStepState extends State<_PauseStep> {
         const SizedBox(height: AppSpacing.lg),
         Text(l10n.relPauseBody, style: theme.textTheme.bodyLarge),
         const SizedBox(height: AppSpacing.xl),
+        // The person's own reasons, surfaced right when they're wavering.
+        const MotivationRecall(showWhy: true, showBenefits: true),
+        const SizedBox(height: AppSpacing.sm),
         // 15-minute "not never, just not now" timer (optional).
         Card(
           child: Padding(
