@@ -52,8 +52,14 @@ dependencies:
 # jni 1.0.1's Android Gradle script is incompatible with the current Flutter
 # Gradle plugin ("Could not find method kotlin()"), breaking the release APK
 # build. Pin to the last pre-JNI release until the ecosystem catches up.
+#
+# flutter_plugin_android_lifecycle (pulled by file_picker + local_auth) bumped
+# its AAR metadata to require compileSdk 36, which the plugin modules (fixed at
+# Flutter's compileSdk 34) can't satisfy. Pin it to a pre-36 release so every
+# plugin builds against 34 again.
 dependency_overrides:
   path_provider_android: 2.2.23
+  flutter_plugin_android_lifecycle: 2.0.17
 
 dev_dependencies:
   flutter_test:

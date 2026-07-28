@@ -6,9 +6,7 @@ plugins {
 
 android {
     namespace = "com.cleantracker.clean_tracker"
-    // file_picker / local_auth pull a flutter_plugin_android_lifecycle that
-    // requires compileSdk 36; override Flutter's default (34).
-    compileSdk = 36
+    compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
