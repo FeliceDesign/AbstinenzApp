@@ -37,9 +37,13 @@ dependencies:
   flutter_local_notifications: ^17.2.4
   timezone: ^0.9.4
 
-  # Render + share a milestone graphic.
+  # Render + share a milestone graphic; also used for JSON export.
   screenshot: ^3.0.0
   share_plus: ^10.1.0
+
+  # Data ownership: pick a JSON file to import; optional biometric app lock.
+  file_picker: ^8.1.2
+  local_auth: ^2.3.0
 
   # Formatting / i18n
   intl: any

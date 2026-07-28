@@ -32,3 +32,18 @@ class ThemeModeSetting extends _$ThemeModeSetting {
     state = mode;
   }
 }
+
+/// Whether the optional biometric/passcode app lock is enabled. Persisted.
+@riverpod
+class AppLockEnabled extends _$AppLockEnabled {
+  static const String _key = 'app_lock_enabled';
+
+  @override
+  bool build() =>
+      ref.watch(sharedPreferencesProvider).getBool(_key) ?? false;
+
+  Future<void> set({required bool value}) async {
+    await ref.read(sharedPreferencesProvider).setBool(_key, value);
+    state = value;
+  }
+}

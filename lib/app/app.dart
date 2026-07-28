@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/theme/app_theme.dart';
 import '../features/onboarding/domain/onboarding_gate.dart';
+import '../features/settings/presentation/app_lock_gate.dart';
 import '../features/settings/presentation/settings_providers.dart';
 import '../l10n/app_localizations.dart';
 import 'router.dart';
@@ -27,6 +28,9 @@ class CleanTrackerApp extends ConsumerWidget {
       routerConfig: ref.watch(routerProvider),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      // Optional biometric/passcode gate over the whole app.
+      builder: (context, child) =>
+          AppLockGate(child: child ?? const SizedBox.shrink()),
     );
   }
 }

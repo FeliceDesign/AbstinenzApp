@@ -498,5 +498,19 @@
   "setDeleteButton": "Delete everything",
 
   "helpTitle": "Help & emergency contacts",
-  "helpIntro": "You don't have to do this alone. If you're in a crisis, reaching out is a strength — one tap dials a number."
+  "helpIntro": "You don't have to do this alone. If you're in a crisis, reaching out is a strength — one tap dials a number.",
+
+  "setAppLock": "App lock",
+  "setAppLockDesc": "Require your fingerprint, face or device passcode to open the app.",
+  "setExport": "Export data",
+  "setExportDesc": "Save everything as a JSON file you can keep or move.",
+  "setImport": "Import data",
+  "setImportDesc": "Replace everything with a previously exported file.",
+  "setImportConfirm": "Importing replaces all current data with the file's contents. Continue?",
+  "setImportDone": "Data imported",
+  "setTransferError": "That didn't work. Please check the file and try again.",
+
+  "lockTitle": "Chainless is locked",
+  "lockUnlock": "Unlock",
+  "lockReason": "Unlock Chainless"
 }

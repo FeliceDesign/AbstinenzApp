@@ -1,6 +1,11 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../core/notifications/notification_service.dart';
 import '../../../core/theme/tokens.dart';
@@ -85,8 +90,32 @@ class SettingsScreen extends ConsumerWidget {
               title: l10n.setPrivacyTitle,
               body: l10n.setPrivacyBody,
             ),
+            SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(l10n.setAppLock),
+              subtitle: Text(l10n.setAppLockDesc),
+              value: ref.watch(appLockEnabledProvider),
+              onChanged: (bool v) =>
+                  ref.read(appLockEnabledProvider.notifier).set(value: v),
+            ),
             const SizedBox(height: AppSpacing.xl),
             _SectionTitle(text: l10n.setData),
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.ios_share_rounded),
+                title: Text(l10n.setExport),
+                subtitle: Text(l10n.setExportDesc),
+                onTap: () => _export(context, ref),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.file_download_outlined),
+                title: Text(l10n.setImport),
+                subtitle: Text(l10n.setImportDesc),
+                onTap: () => _import(context, ref),
+              ),
+            ),
             Card(
               child: ListTile(
                 leading: Icon(
@@ -109,6 +138,56 @@ class SettingsScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _export(BuildContext context, WidgetRef ref) async {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    try {
+      final String json = await ref.read(dataRepositoryProvider).exportJson();
+      final Directory dir = await getTemporaryDirectory();
+      final File file = File('${dir.path}/chainless-export.json');
+      await file.writeAsString(json);
+      await Share.shareXFiles(<XFile>[XFile(file.path)]);
+    } catch (_) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.setTransferError)),
+        );
+      }
+    }
+  }
+
+  Future<void> _import(BuildContext context, WidgetRef ref) async {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    final bool ok = await _confirm(
+      context,
+      title: l10n.setImport,
+      body: l10n.setImportConfirm,
+      confirmLabel: l10n.setImport,
+      destructive: true,
+    );
+    if (!ok || !context.mounted) return;
+    try {
+      final FilePickerResult? picked = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: <String>['json'],
+      );
+      final String? path = picked?.files.single.path;
+      if (path == null) return;
+      final String json = await File(path).readAsString();
+      await ref.read(dataRepositoryProvider).importJson(json);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.setImportDone)),
+        );
+      }
+    } catch (_) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.setTransferError)),
+        );
+      }
+    }
   }
 
   Future<void> _deleteAll(BuildContext context, WidgetRef ref) async {

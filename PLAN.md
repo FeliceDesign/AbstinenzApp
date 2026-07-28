@@ -155,7 +155,26 @@ English.
         dashboard next-milestone ring, and a full-screen celebration with a
         calm radial gold wave + shareable graphic (`screenshot` + `share_plus`)
   - [x] Tests: milestone status (reached/next/progress) + preset seeding
-- [ ] **Phase 9** — Export/import, app lock, settings, polish, A11y pass
+- [x] **Phase 9 — Export/import, app lock, settings, polish, A11y + rebrand**
+  - [x] Renamed the app to **Chainless** (l10n, onboarding, Android label, iOS
+        display name; package id stays `clean_tracker`)
+  - [x] **Light-first "dawn-berry" restyle** per the style guide: single
+        swappable `AppPalette` (5 brand anchors + interpolated ends) + warm
+        neutrals; `AppColors` is the semantic layer. Theme follows the system
+        with a manual override. Accent = berry (light) / sky (dark); achievement
+        stays warm; cards use a soft shadow in light, a border in dark. WCAG AA
+        ratios documented in `tokens.dart`.
+  - [x] Settings screen: appearance (System/Light/Dark), calorie toggle, app
+        lock, disclaimer + medical warning, privacy (no-internet) note, data
+        export/import, double-confirmed delete-all
+  - [x] Help & emergency-contacts screen (tap to dial)
+  - [x] **Export / import** all tables as JSON (`share_plus` + `file_picker`),
+        ids preserved, parents restored first
+  - [x] **Optional app lock** (`local_auth`, biometric/passcode) gating the whole
+        app; Android `FlutterFragmentActivity` + `USE_BIOMETRIC`, iOS
+        `NSFaceIDUsageDescription`
+  - [x] A11y: semantics labels on icon buttons/charts, ≥48 dp targets, flexible
+        layouts for text scaling, colour never the only signal
 
 ## Architecture notes & trade-offs
 

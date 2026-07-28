@@ -399,5 +399,19 @@
   "setDeleteButton": "Alles löschen",
 
   "helpTitle": "Hilfe & Notfallkontakte",
-  "helpIntro": "Du musst das nicht allein durchstehen. In einer Krise ist es Stärke, sich zu melden — ein Tippen wählt eine Nummer."
+  "helpIntro": "Du musst das nicht allein durchstehen. In einer Krise ist es Stärke, sich zu melden — ein Tippen wählt eine Nummer.",
+
+  "setAppLock": "App-Sperre",
+  "setAppLockDesc": "Fingerabdruck, Gesicht oder Geräte-Code zum Öffnen der App verlangen.",
+  "setExport": "Daten exportieren",
+  "setExportDesc": "Alles als JSON-Datei sichern, die du behalten oder verschieben kannst.",
+  "setImport": "Daten importieren",
+  "setImportDesc": "Alles durch eine zuvor exportierte Datei ersetzen.",
+  "setImportConfirm": "Beim Import werden alle aktuellen Daten durch den Inhalt der Datei ersetzt. Fortfahren?",
+  "setImportDone": "Daten importiert",
+  "setTransferError": "Das hat nicht geklappt. Bitte prüfe die Datei und versuch es erneut.",
+
+  "lockTitle": "Chainless ist gesperrt",
+  "lockUnlock": "Entsperren",
+  "lockReason": "Chainless entsperren"
 }
