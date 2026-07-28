@@ -43,5 +43,10 @@ void main() {
     );
     // Range toggle is present.
     expect(find.text('30 Tage'), findsOneWidget);
+
+    // Dispose the tree, then pump so drift's stream-close timers fire before
+    // the test ends — otherwise flutter_test reports a pending Timer.
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(const Duration(milliseconds: 10));
   });
 }
