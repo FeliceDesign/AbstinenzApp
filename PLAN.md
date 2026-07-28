@@ -138,7 +138,23 @@ English.
         switchable off in-screen. No weight/BMI/target-weight, no deficit talk.
   - [x] `BaselineRepository` (append-only versions) + `SavingGoalRepository`
   - [x] Tests: versioned-baseline savings, goal projection, calorie equivalents
-- [ ] **Phase 8** — Milestones + notifications + share graphic
+- [x] **Phase 8 — Milestones + notifications + share graphic**
+  - [x] `milestone_content.dart`: the time ladder (1h…5y) + sourced health
+        milestones per habit type (nicotine/alcohol/cannabis/sugar), cited in
+        code comments; pure `milestone_status` (reached/next/progress) — tested
+  - [x] `MilestoneRepository` with idempotent per-habit seeding; custom
+        milestones; achievement + relapse-reset
+  - [x] Local notifications (`flutter_local_notifications` + `timezone`),
+        scheduled at each milestone's exact future instant (inexact alarms, UTC —
+        no device-tz lookup, no exact-alarm permission). Android desugaring +
+        POST_NOTIFICATIONS wired. **Push on reach** (DoD).
+  - [x] `MilestoneCoordinator` (0-size shell widget): seeds, reschedules on
+        attempt change, resets on relapse, persists achievements — all guarded
+        so tests never touch a platform channel
+  - [x] Timeline screen (ring to next + full ladder, reached/upcoming), a
+        dashboard next-milestone ring, and a full-screen celebration with a
+        calm radial gold wave + shareable graphic (`screenshot` + `share_plus`)
+  - [x] Tests: milestone status (reached/next/progress) + preset seeding
 - [ ] **Phase 9** — Export/import, app lock, settings, polish, A11y pass
 
 ## Architecture notes & trade-offs

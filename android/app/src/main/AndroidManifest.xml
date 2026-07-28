@@ -2,6 +2,10 @@
     <!-- Privacy by design: no INTERNET permission is declared here, so release
          builds cannot access the network. The permission in the debug manifest
          is dev-tooling only (hot reload) and is not merged into release. -->
+    <!-- The only runtime permission the app asks for: local milestone / check-in
+         notifications (Android 13+). No exact-alarm permission — milestone
+         notifications are scheduled inexactly, which is fine for the use case. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <application
         android:label="Clean Tracker"
         android:name="${applicationName}"

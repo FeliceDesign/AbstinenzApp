@@ -425,5 +425,53 @@
   "calDisableToggle": "Show calories",
   "calDisabledState": "The calorie counter is off.",
   "calNoData": "Add a baseline with kcal, and your estimate appears here.",
-  "calDisabledNote": "No weight, BMI or target-weight features — just a rough estimate."
+  "calDisabledNote": "No weight, BMI or target-weight features — just a rough estimate.",
+
+  "msTitle": "Milestones",
+  "msNext": "Next milestone",
+  "msAllReached": "All reached",
+  "msNoHabit": "Set up a habit first, then your milestones appear here.",
+  "msAdd": "Add milestone",
+  "msAddTitleHint": "e.g. First sober concert",
+  "msAddDaysHint": "After how many days?",
+  "msAchievedOn": "Reached on {date}",
+  "@msAchievedOn": {
+    "placeholders": { "date": { "type": "String" } }
+  },
+  "msCelebrateSub": "You reached a milestone.",
+  "msShare": "Share",
+  "msNotifTitle": "Milestone reached",
+  "msNotifBody": "You reached: {title}",
+  "@msNotifBody": {
+    "placeholders": { "title": { "type": "String" } }
+  },
+
+  "ms1h": "1 hour",
+  "ms12h": "12 hours",
+  "ms24h": "24 hours",
+  "ms3d": "3 days",
+  "ms1w": "1 week",
+  "ms2w": "2 weeks",
+  "ms1m": "1 month",
+  "ms3m": "3 months",
+  "ms6m": "6 months",
+  "ms1y": "1 year",
+  "ms2y": "2 years",
+  "ms5y": "5 years",
+
+  "msNic20m": "Heart rate and blood pressure begin to settle",
+  "msNic12h": "Blood carbon monoxide drops back to normal",
+  "msNic2w": "Circulation and lung function start to improve",
+  "msNic1m": "Your lungs' cilia recover — less coughing",
+  "msNic1y": "Added heart-disease risk is roughly halved",
+  "msAlc24h": "Sleep and blood sugar begin to steady",
+  "msAlc1w": "Better hydration and skin; your liver starts recovering",
+  "msAlc1m": "Liver fat drops and concentration sharpens",
+  "msAlc3m": "Liver function has improved markedly",
+  "msCan1d": "Deep (REM) sleep begins to return",
+  "msCan1w": "Clearer thinking and better short-term memory",
+  "msCan1m": "Smoking-related lung irritation eases",
+  "msSug3d": "Your sense of taste sharpens",
+  "msSug1w": "Steadier energy and fewer cravings",
+  "msSug1m": "Steadier mood and clearer skin"
 }

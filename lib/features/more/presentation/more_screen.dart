@@ -22,6 +22,18 @@ class MoreScreen extends StatelessWidget {
             onTap: () => context.push('/motivation'),
           ),
           ListTile(
+            leading: const Icon(Icons.emoji_events_outlined),
+            title: Text(l10n.msTitle),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/milestones'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.savings_outlined),
+            title: Text(l10n.savTitle),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () => context.push('/savings'),
+          ),
+          ListTile(
             leading: const Icon(Icons.mail_outline_rounded),
             title: Text(l10n.futureLetterTitle),
             trailing: const Icon(Icons.chevron_right_rounded),

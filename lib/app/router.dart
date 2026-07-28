@@ -5,6 +5,8 @@ import '../core/widgets/placeholder_screen.dart';
 import '../features/calendar/presentation/calendar_screen.dart';
 import '../features/checkin/presentation/checkin_screen.dart';
 import '../features/dashboard/presentation/dashboard_screen.dart';
+import '../features/milestones/presentation/milestone_coordinator.dart';
+import '../features/milestones/presentation/milestones_screen.dart';
 import '../features/mood/presentation/mood_entry_screen.dart';
 import '../features/onboarding/domain/onboarding_gate.dart';
 import '../features/onboarding/presentation/onboarding_screen.dart';
@@ -89,6 +91,10 @@ GoRouter buildRouter(OnboardingGate gate) {
         path: '/calories',
         builder: (context, state) => const CaloriesScreen(),
       ),
+      GoRoute(
+        path: '/milestones',
+        builder: (context, state) => const MilestonesScreen(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
             _ScaffoldWithNav(navigationShell: navigationShell),
@@ -152,7 +158,14 @@ class _ScaffoldWithNav extends StatelessWidget {
   Widget build(BuildContext context) {
     final AppLocalizations l10n = AppLocalizations.of(context);
     return Scaffold(
-      body: navigationShell,
+      // The coordinator is a 0-size widget that seeds milestones and schedules
+      // their notifications; it lives here so it's mounted app-wide post-onboarding.
+      body: Stack(
+        children: [
+          navigationShell,
+          const MilestoneCoordinator(),
+        ],
+      ),
       floatingActionButton: const UrgeFab(),
       bottomNavigationBar: NavigationBar(
         selectedIndex: navigationShell.currentIndex,

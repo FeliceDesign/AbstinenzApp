@@ -33,6 +33,14 @@ dependencies:
   # Launch tel: for the emergency-contact urge technique
   url_launcher: ^6.3.0
 
+  # Local notifications for milestone reminders (no network involved).
+  flutter_local_notifications: ^17.2.4
+  timezone: ^0.9.4
+
+  # Render + share a milestone graphic.
+  screenshot: ^3.0.0
+  share_plus: ^10.1.0
+
   # Formatting / i18n
   intl: any
 
