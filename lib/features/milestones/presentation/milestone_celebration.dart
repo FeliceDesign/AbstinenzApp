@@ -67,9 +67,7 @@ class _MilestoneCelebrationScreenState extends State<MilestoneCelebrationScreen>
       final Directory dir = await getTemporaryDirectory();
       final File file = File('${dir.path}/milestone.png');
       await file.writeAsBytes(bytes);
-      await SharePlus.instance.share(
-        ShareParams(files: <XFile>[XFile(file.path)]),
-      );
+      await Share.shareXFiles(<XFile>[XFile(file.path)]);
     } catch (_) {
       // Sharing cancelled or unavailable — nothing to do.
     } finally {

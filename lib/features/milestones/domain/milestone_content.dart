@@ -145,7 +145,9 @@ List<MilestoneDef> presetMilestones(HabitType type) {
   final List<MilestoneDef> all = <MilestoneDef>[
     ...timeMilestones,
     ...healthMilestones(type),
-  ]..sort((MilestoneDef a, MilestoneDef b) =>
-      a.thresholdSeconds.compareTo(b.thresholdSeconds));
+  ]..sort(
+      (MilestoneDef a, MilestoneDef b) =>
+          a.thresholdSeconds.compareTo(b.thresholdSeconds),
+    );
   return all;
 }

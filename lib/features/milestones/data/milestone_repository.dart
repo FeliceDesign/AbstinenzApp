@@ -69,6 +69,6 @@ class MilestoneRepository {
   /// streak, so the milestones can be earned again in the new attempt.
   Future<void> resetAchievements(int habitId) {
     return (_db.update(_db.milestones)..where((t) => t.habitId.equals(habitId)))
-        .write(const MilestonesCompanion(achievedAt: Value<DateTime>(null)));
+        .write(const MilestonesCompanion(achievedAt: Value<DateTime?>(null)));
   }
 }
