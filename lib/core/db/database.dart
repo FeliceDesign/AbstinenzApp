@@ -137,6 +137,18 @@ class BaselineUsages extends Table {
   DateTimeColumn get validFrom => dateTime()();
 }
 
+/// A savings goal ("new lens, 800 €"). Funded by the running savings estimate.
+/// App-wide (not tied to a single habit) so total savings across habits count.
+/// Added in schema v3.
+class SavingGoals extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get title => text().withLength(min: 1, max: 120)();
+  RealColumn get targetAmount => real()();
+  TextColumn get currency => text().withDefault(const Constant('EUR'))();
+  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get achievedAt => dateTime().nullable()();
+}
+
 // --- Database ----------------------------------------------------------------
 
 @DriftDatabase(
@@ -150,6 +162,7 @@ class BaselineUsages extends Table {
     Milestones,
     Motivations,
     BaselineUsages,
+    SavingGoals,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -159,7 +172,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.executor);
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -170,6 +183,10 @@ class AppDatabase extends _$AppDatabase {
           // v2: benefits can be marked "already noticed" with a date.
           if (from < 2) {
             await m.addColumn(motivations, motivations.noticedAt);
+          }
+          // v3: savings goals.
+          if (from < 3) {
+            await m.createTable(savingGoals);
           }
         },
         beforeOpen: (details) async {

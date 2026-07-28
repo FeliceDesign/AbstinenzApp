@@ -362,5 +362,68 @@
   "dayUrgeCount": "{count, plural, =1{1 urge ridden out} other{# urges ridden out}}",
   "@dayUrgeCount": {
     "placeholders": { "count": { "type": "int" } }
-  }
+  },
+
+  "commonSave": "Save",
+  "commonCancel": "Cancel",
+  "commonClose": "Close",
+  "commonDelete": "Delete",
+
+  "savTitle": "Savings",
+  "savTileSaved": "Saved",
+  "savTileCalories": "Calories",
+  "savEstimate": "Estimate",
+  "savSetupTitle": "Track your savings",
+  "savSetupBody": "Set a baseline and watch what you don't spend add up.",
+  "savNoHabit": "Set up a habit first.",
+  "savPerDay": "per day",
+  "savFormulaTitle": "How this is calculated",
+  "savFormulaBody": "Amount per day × cost per unit × clean days. It's only an estimate — you can adjust the baseline any time, and changes apply from their date onward.",
+  "savProjectionTitle": "Projection",
+  "savProjMonth": "In 1 month",
+  "savProjYear": "In 1 year",
+  "savProj5Year": "In 5 years",
+  "savBaselinesTitle": "Baseline",
+  "savBaselineNone": "Not set up yet",
+  "savSetBaseline": "Set up",
+  "savEditBaseline": "Edit",
+  "savBaselineTitle": "Baseline",
+  "savBaselineHelp": "Roughly how much did you use per day, and what did one unit cost?",
+  "savUnitsPerDay": "Amount per day",
+  "savCostPerUnit": "Cost per unit",
+  "savKcalPerUnit": "kcal per unit",
+  "savGoalsTitle": "Savings goals",
+  "savGoalAdd": "Add goal",
+  "savGoalTitleHint": "e.g. New lens",
+  "savGoalAmountHint": "Price",
+  "savGoalEmpty": "No goals yet. Add one and a progress bar runs alongside it.",
+  "savGoalReached": "Reached",
+  "savGoalRemaining": "{amount} to go",
+  "@savGoalRemaining": {
+    "placeholders": { "amount": { "type": "String" } }
+  },
+  "savGoalEta": "Reached in about {days, plural, =1{1 day} other{# days}}",
+  "@savGoalEta": {
+    "placeholders": { "days": { "type": "int" } }
+  },
+
+  "calTitle": "Calories",
+  "calNotConsumed": "Calories not consumed (estimate)",
+  "calEquivTitle": "Roughly equivalent to",
+  "calEquivPizza": "≈ {count, plural, =1{1 pizza} other{# pizzas}}",
+  "@calEquivPizza": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "calEquivRunning": "≈ {count, plural, =1{1 km} other{# km}} of running",
+  "@calEquivRunning": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "calEquivChocolate": "≈ {count, plural, =1{1 bar} other{# bars}} of chocolate",
+  "@calEquivChocolate": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "calDisableToggle": "Show calories",
+  "calDisabledState": "The calorie counter is off.",
+  "calNoData": "Add a baseline with kcal, and your estimate appears here.",
+  "calDisabledNote": "No weight, BMI or target-weight features — just a rough estimate."
 }

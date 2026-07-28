@@ -123,7 +123,21 @@ English.
   - [x] Fix: Motivation screen now wraps its body in `SafeArea` so the add
         button and last item clear the system navigation bar
   - [x] Tests: calendar domain (clean run, relapse precedence, warmth tiers)
-- [ ] **Phase 7** — Savings + calories + saving goals (versioned baselines)
+- [x] **Phase 7 — Savings + calories + saving goals (versioned baselines)**
+  - [x] Schema **v3** migration: `SavingGoals` table (createTable onUpgrade)
+  - [x] Pure `computeSavings` integrates **versioned baselines** over the clean
+        spans — a baseline edit only counts from its `validFrom`, and time before
+        the first baseline earns nothing. Unit-tested (the DoD).
+  - [x] Live dashboard tiles (Saved / Calories) counting up per second,
+        lifecycle-aware (`LiveNow`); a prompt tile until a baseline is set
+  - [x] Savings screen: live total (labelled estimate), formula info, 1-month /
+        1-year / 5-year projection, per-habit baseline editor (new version per
+        edit), and savings goals with progress bars + "reached in ~N days"
+  - [x] Calorie screen: calories not consumed + tangible equivalents (pizzas,
+        km run, chocolate — clearly rough), shown only for caloric habit types,
+        switchable off in-screen. No weight/BMI/target-weight, no deficit talk.
+  - [x] `BaselineRepository` (append-only versions) + `SavingGoalRepository`
+  - [x] Tests: versioned-baseline savings, goal projection, calorie equivalents
 - [ ] **Phase 8** — Milestones + notifications + share graphic
 - [ ] **Phase 9** — Export/import, app lock, settings, polish, A11y pass
 
