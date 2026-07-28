@@ -347,5 +347,20 @@
       "value": { "type": "String" },
       "uses": { "type": "int" }
     }
+  },
+
+  "calNoHabit": "Set up a habit first, then your calendar fills in here.",
+  "calSelectHabit": "Choose habit",
+  "calShowYear": "Year overview",
+  "calShowMonth": "Month view",
+  "legendClean": "Clean",
+  "legendRelapse": "Relapse",
+  "legendCheckin": "Check-in",
+  "dayNoEvents": "Nothing logged on this day.",
+  "dayRelapseTitle": "Relapse",
+  "dayRelapseLogged": "Logged as a data point.",
+  "dayUrgeCount": "{count, plural, =1{1 urge ridden out} other{# urges ridden out}}",
+  "@dayUrgeCount": {
+    "placeholders": { "count": { "type": "int" } }
   }
 }

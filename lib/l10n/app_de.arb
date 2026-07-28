@@ -272,5 +272,17 @@
   "statsUrgeEmpty": "Übersteh ein Verlangen mit dem Toolkit, dann erscheint hier dein Fortschritt.",
   "statsWaves": "{count, plural, =1{1 Welle überstanden} other{# Wellen überstanden}}",
   "statsWhatWorks": "Was bei dir am besten wirkt",
-  "statsTechniqueEffect": "{technique}: Ø −{value} ({uses}×)"
+  "statsTechniqueEffect": "{technique}: Ø −{value} ({uses}×)",
+
+  "calNoHabit": "Richte zuerst einen Weg ein, dann füllt sich hier dein Kalender.",
+  "calSelectHabit": "Weg wählen",
+  "calShowYear": "Jahresübersicht",
+  "calShowMonth": "Monatsansicht",
+  "legendClean": "Clean",
+  "legendRelapse": "Rückfall",
+  "legendCheckin": "Check-in",
+  "dayNoEvents": "An diesem Tag ist nichts eingetragen.",
+  "dayRelapseTitle": "Rückfall",
+  "dayRelapseLogged": "Als Datenpunkt erfasst.",
+  "dayUrgeCount": "{count, plural, =1{1 Welle überstanden} other{# Wellen überstanden}}"
 }

@@ -38,12 +38,18 @@ class MotivationScreen extends ConsumerWidget {
             ],
           ),
         ),
-        body: const TabBarView(
-          children: [
-            _KindTab(kind: MotivationKind.why),
-            _BenefitsTab(),
-            _KindTab(kind: MotivationKind.consequence),
-          ],
+        // top: false — the AppBar (with its TabBar) already handles the top
+        // inset; this adds the missing bottom inset so the "add" button and the
+        // last list item clear the system navigation bar.
+        body: const SafeArea(
+          top: false,
+          child: TabBarView(
+            children: [
+              _KindTab(kind: MotivationKind.why),
+              _BenefitsTab(),
+              _KindTab(kind: MotivationKind.consequence),
+            ],
+          ),
         ),
       ),
     );

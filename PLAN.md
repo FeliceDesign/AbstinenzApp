@@ -107,7 +107,22 @@ English.
         empty-state widget smoke test
 - [ ] **Phase 5 follow-ups:** low-mood safety nudge to the help screen (Phase 9,
       once the help screen lands), notification for the daily check-in (Phase 8).
-- [ ] **Phase 6** — Calendar heatmap + day detail
+- [x] **Phase 6 — Calendar heatmap + day detail**
+  - [x] Pure `buildCalendarMonth` (clean / relapse / none per day, streak-length
+        warmth tier, mood score, check-in flag) — DST-safe, unit-tested
+  - [x] Hand-built heatmap grid (no `table_calendar`): clean = gold, warmer with
+        a longer streak (25/45/70/100 %); relapse = outlined, no fill, no red;
+        mood dot; check-in sky ring. Colour never the only signal.
+  - [x] Swipe (and arrows) between months via an infinite `PageView`; cells
+        sized to the space so it never overflows
+  - [x] Compact year overview (12 mini-months), tap a month to jump to it
+  - [x] Habit selector for multi-habit users (calendar is per-habit for
+        clean/relapse; mood + check-in are app-wide)
+  - [x] Day-detail bottom sheet showing **all event types** of the day: relapse,
+        mood (faces + tags + note), check-in answers, urges (DoD)
+  - [x] Fix: Motivation screen now wraps its body in `SafeArea` so the add
+        button and last item clear the system navigation bar
+  - [x] Tests: calendar domain (clean run, relapse precedence, warmth tiers)
 - [ ] **Phase 7** — Savings + calories + saving goals (versioned baselines)
 - [ ] **Phase 8** — Milestones + notifications + share graphic
 - [ ] **Phase 9** — Export/import, app lock, settings, polish, A11y pass

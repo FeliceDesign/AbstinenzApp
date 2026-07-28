@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/widgets/placeholder_screen.dart';
+import '../features/calendar/presentation/calendar_screen.dart';
 import '../features/checkin/presentation/checkin_screen.dart';
 import '../features/dashboard/presentation/dashboard_screen.dart';
 import '../features/mood/presentation/mood_entry_screen.dart';
@@ -94,11 +95,7 @@ GoRouter buildRouter(OnboardingGate gate) {
             routes: [
               GoRoute(
                 path: AppRoutes.calendar,
-                builder: (context, state) => PlaceholderScreen(
-                  title: AppLocalizations.of(context).navCalendar,
-                  icon: Icons.calendar_month_rounded,
-                  message: AppLocalizations.of(context).comingSoon,
-                ),
+                builder: (context, state) => const CalendarScreen(),
               ),
             ],
           ),
