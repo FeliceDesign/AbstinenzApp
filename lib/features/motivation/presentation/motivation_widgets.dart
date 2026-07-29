@@ -22,7 +22,7 @@ class DashboardWhyCard extends ConsumerWidget {
     // `.card-why`. A light field (rather than a saturated one) makes the berry
     // urge FAB that floats over this card stand out sharply.
     const Color ink = AppColors.lightTextPrimary;
-    final Color labelColor = AppColors.brandBerry;
+    const Color labelColor = AppColors.brandBerry;
     return ColorFieldCard(
       fill: AppColors.brandGold,
       onFill: ink,
