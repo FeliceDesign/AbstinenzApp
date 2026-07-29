@@ -5,6 +5,7 @@ import '../core/widgets/placeholder_screen.dart';
 import '../features/calendar/presentation/calendar_screen.dart';
 import '../features/checkin/presentation/checkin_screen.dart';
 import '../features/dashboard/presentation/dashboard_screen.dart';
+import '../features/home_widget/home_widget_coordinator.dart';
 import '../features/milestones/presentation/milestone_coordinator.dart';
 import '../features/milestones/presentation/milestones_screen.dart';
 import '../features/mood/presentation/mood_entry_screen.dart';
@@ -176,6 +177,7 @@ class _ScaffoldWithNav extends StatelessWidget {
           navigationShell,
           const MilestoneCoordinator(),
           const ReminderCoordinator(),
+          const HomeWidgetCoordinator(),
         ],
       ),
       floatingActionButton: const UrgeFab(),

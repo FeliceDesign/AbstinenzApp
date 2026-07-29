@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hero streak card: the app's Warm Spring blue gradient. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:startColor="#4A8FC7"
+        android:endColor="#4586BE" />
+    <corners android:radius="28dp" />
+</shape>

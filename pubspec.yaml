@@ -45,6 +45,13 @@ dependencies:
   file_picker: ^8.1.2
   local_auth: ^2.3.0
 
+  # Android home-screen widgets (time / money / urge / dashboard). Pinned to
+  # 0.4.1 on purpose: it is the last release before home_widget started pulling
+  # androidx.glance, which requires compileSdk 35 and would break this project's
+  # deliberate compileSdk-34 pinning (see the note below). 0.4.1 is pure
+  # RemoteViews, compileSdk 34, and needs no extra permissions (no INTERNET).
+  home_widget: 0.4.1
+
   # Formatting / i18n
   intl: any
 

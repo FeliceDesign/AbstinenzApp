@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home-screen widget picker labels + descriptions (English default). -->
+    <string name="widget_time_label">Unbound · Streak</string>
+    <string name="widget_money_label">Unbound · Saved</string>
+    <string name="widget_urge_label">Unbound · Urge</string>
+    <string name="widget_dashboard_label">Unbound · Dashboard</string>
+    <string name="widget_time_desc">Your clean streak, always up to date.</string>
+    <string name="widget_money_desc">See how much you have saved.</string>
+    <string name="widget_urge_desc">One tap to open urge support.</string>
+    <string name="widget_dashboard_desc">Streak, savings and urge help in one card.</string>
+</resources>

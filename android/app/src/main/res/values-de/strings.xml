@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Widget-Auswahl: Titel + Beschreibungen (Deutsch). -->
+    <string name="widget_time_label">Unbound · Streak</string>
+    <string name="widget_money_label">Unbound · Gespart</string>
+    <string name="widget_urge_label">Unbound · Verlangen</string>
+    <string name="widget_dashboard_label">Unbound · Dashboard</string>
+    <string name="widget_time_desc">Deine clean-Zeit, immer aktuell.</string>
+    <string name="widget_money_desc">Sieh, wie viel du gespart hast.</string>
+    <string name="widget_urge_desc">Ein Tipp öffnet die Verlangen-Hilfe.</string>
+    <string name="widget_dashboard_desc">Streak, Ersparnis und Hilfe in einer Karte.</string>
+</resources>

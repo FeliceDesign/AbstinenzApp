@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Urge button: the Pink Horror berry signal. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#952D5D" />
+    <corners android:radius="28dp" />
+</shape>
