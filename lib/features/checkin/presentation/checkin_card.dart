@@ -41,7 +41,7 @@ class DashboardCheckinCard extends ConsumerWidget {
                   children: <Widget>[
                     Text(
                       l10n.dashCheckinTitle,
-                      style: theme.textTheme.titleLarge,
+                      style: theme.textTheme.headlineMedium,
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Text(

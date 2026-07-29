@@ -36,29 +36,35 @@ class DashboardSavingsTiles extends ConsumerWidget {
       clock: ref.watch(clockProvider),
       builder: (BuildContext context, DateTime now) {
         final SavingsResult r = totalSavings(inputs, now);
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              child: _ValueTile(
-                icon: Icons.savings_rounded,
-                label: l10n.savTileSaved,
-                value: formatMoney(locale, currency, r.money),
-                onTap: () => context.push('/savings'),
-              ),
-            ),
-            if (showCalories) ...<Widget>[
-              const SizedBox(width: AppSpacing.md),
+        // IntrinsicHeight bounds the row's height so the two stretch tiles get
+        // equal, finite heights. Without it, `stretch` inside the dashboard's
+        // unbounded sliver makes the row grow without limit — which scrolls the
+        // page into infinity and pushes the cards below (the "why") off-screen.
+        return IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
               Expanded(
                 child: _ValueTile(
-                  icon: Icons.local_fire_department_rounded,
-                  label: l10n.savTileCalories,
-                  value: '${formatKcal(locale, r.calories)} kcal',
-                  onTap: () => context.push('/calories'),
+                  icon: Icons.savings_rounded,
+                  label: l10n.savTileSaved,
+                  value: formatMoney(locale, currency, r.money),
+                  onTap: () => context.push('/savings'),
                 ),
               ),
+              if (showCalories) ...<Widget>[
+                const SizedBox(width: AppSpacing.md),
+                Expanded(
+                  child: _ValueTile(
+                    icon: Icons.local_fire_department_rounded,
+                    label: l10n.savTileCalories,
+                    value: '${formatKcal(locale, r.calories)} kcal',
+                    onTap: () => context.push('/calories'),
+                  ),
+                ),
+              ],
             ],
-          ],
+          ),
         );
       },
     );
@@ -155,7 +161,7 @@ class _PromptTile extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       l10n.savSetupTitle,
-                      style: theme.textTheme.titleLarge,
+                      style: theme.textTheme.headlineMedium,
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Text(

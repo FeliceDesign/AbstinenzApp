@@ -18,12 +18,14 @@ class DashboardWhyCard extends ConsumerWidget {
     final theme = Theme.of(context);
     final Motivation? why = ref.watch(dailyWhyProvider);
 
-    // Warm clay colour field with white text — the mockup's `.card-why`.
-    // Clay (not berry) so it stays distinct from the berry urge FAB that
-    // floats over this card. Emotional, personal content earns a full field.
-    final Color labelColor = Colors.white.withValues(alpha: 0.75);
+    // Light gold/cream colour field with dark ink text — the mockup's
+    // `.card-why`. A light field (rather than a saturated one) makes the berry
+    // urge FAB that floats over this card stand out sharply.
+    const Color ink = AppColors.lightTextPrimary;
+    final Color labelColor = AppColors.brandBerry;
     return ColorFieldCard(
-      fill: AppColors.brandClay,
+      fill: AppColors.brandGold,
+      onFill: ink,
       onTap: () => context.push('/motivation'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,15 +40,18 @@ class DashboardWhyCard extends ConsumerWidget {
               const SizedBox(width: AppSpacing.sm),
               Text(
                 l10n.dashWhyTitle,
-                style: theme.textTheme.labelMedium?.copyWith(color: labelColor),
+                style: theme.textTheme.labelLarge?.copyWith(
+                  color: labelColor,
+                  letterSpacing: 0.4,
+                ),
               ),
             ],
           ),
           const SizedBox(height: AppSpacing.md),
           Text(
             why?.content ?? l10n.dashWhyEmpty,
-            style: theme.textTheme.titleLarge?.copyWith(
-              color: Colors.white,
+            style: theme.textTheme.headlineMedium?.copyWith(
+              color: ink,
               fontStyle: why == null ? FontStyle.italic : null,
             ),
           ),

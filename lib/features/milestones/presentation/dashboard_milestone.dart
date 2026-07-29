@@ -38,10 +38,11 @@ class DashboardNextMilestone extends ConsumerWidget {
         attempts.where((QuitAttempt a) => a.endedAt == null).firstOrNull;
     if (active == null) return const SizedBox.shrink();
 
-    // Sand colour field with dark ink text — the mockup's `.card-milestone`.
+    // Deeper orange/sand colour field with dark ink text — the mockup's
+    // `.card-milestone`. Sand (darker than gold) reads as a warm "cream".
     const Color onSand = AppColors.lightTextPrimary;
     return ColorFieldCard(
-      fill: AppColors.brandGold,
+      fill: AppColors.brandSand,
       onFill: onSand,
       onTap: () => context.push('/milestones'),
       child: LiveNow(
@@ -85,16 +86,20 @@ class DashboardNextMilestone extends ConsumerWidget {
                   children: <Widget>[
                     Text(
                       allDone ? l10n.msAllReached : l10n.msNext,
-                      style: theme.textTheme.labelMedium
-                          ?.copyWith(color: AppColors.brandBerry),
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: AppColors.brandBerry,
+                        letterSpacing: 0.4,
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Text(
                       allDone
                           ? l10n.msTitle
                           : shortDuration(t.nextThresholdSeconds!),
-                      style: theme.textTheme.titleLarge
-                          ?.copyWith(color: onSand),
+                      style: theme.textTheme.headlineLarge?.copyWith(
+                        color: onSand,
+                        fontFeatures: AppFonts.tabular,
+                      ),
                     ),
                   ],
                 ),

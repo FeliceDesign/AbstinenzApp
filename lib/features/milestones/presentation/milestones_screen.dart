@@ -184,13 +184,13 @@ class _NextRing extends StatelessWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ThemeData theme = Theme.of(context);
     final bool allDone = timeline.nextThresholdSeconds == null;
-    const Color onGold = AppColors.lightTextPrimary;
+    const Color onSand = AppColors.lightTextPrimary;
 
-    // The next milestone is the hero of this screen: a gold field with a big
-    // berry progress ring, echoing the dashboard's milestone card.
+    // The next milestone is the hero of this screen: a warm sand field with a
+    // big berry progress ring, echoing the dashboard's milestone card.
     return ColorFieldCard(
-      fill: AppColors.brandGold,
-      onFill: onGold,
+      fill: AppColors.brandSand,
+      onFill: onSand,
       padding: const EdgeInsets.all(AppSpacing.xxl),
       child: Center(
         child: SizedBox(
@@ -216,17 +216,19 @@ class _NextRing extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     allDone ? l10n.msAllReached : l10n.msNext,
-                    style: theme.textTheme.labelMedium
-                        ?.copyWith(color: AppColors.brandBerry),
+                    style: theme.textTheme.labelLarge?.copyWith(
+                      color: AppColors.brandBerry,
+                      letterSpacing: 0.4,
+                    ),
                   ),
                   const SizedBox(height: AppSpacing.xs),
                   Text(
                     allDone
                         ? '★'
                         : shortDuration(timeline.nextThresholdSeconds!),
-                    style: theme.textTheme.headlineMedium?.copyWith(
+                    style: theme.textTheme.headlineLarge?.copyWith(
                       fontFeatures: AppFonts.tabular,
-                      color: onGold,
+                      color: onSand,
                     ),
                   ),
                 ],
