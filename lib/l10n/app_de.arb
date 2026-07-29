@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "appTitle": "Chainless",
+  "appTitle": "Unbound",
 
   "navDashboard": "Übersicht",
   "navCalendar": "Kalender",
@@ -38,7 +38,7 @@
   "unitPorn": "Sitzung",
   "unitOther": "Einheit",
 
-  "onbWelcomeTitle": "Willkommen bei Chainless",
+  "onbWelcomeTitle": "Willkommen bei Unbound",
   "onbWelcomeBody": "Ein ruhiger, privater Ort für deine clean-Zeit. Alles bleibt auf deinem Gerät — kein Konto, keine Cloud.",
   "onbDisclaimer": "Diese App ist kein medizinisches Produkt und ersetzt keine ärztliche oder therapeutische Behandlung.",
   "onbAlcoholWarning": "Abruptes Absetzen von Alkohol kann medizinisch gefährlich sein (Krampfanfälle, Delir). Bitte hole vorher ärztlichen Rat ein.",
@@ -411,7 +411,7 @@
   "setImportDone": "Daten importiert",
   "setTransferError": "Das hat nicht geklappt. Bitte prüfe die Datei und versuch es erneut.",
 
-  "lockTitle": "Chainless ist gesperrt",
+  "lockTitle": "Unbound ist gesperrt",
   "lockUnlock": "Entsperren",
-  "lockReason": "Chainless entsperren"
+  "lockReason": "Unbound entsperren"
 }

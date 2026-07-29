@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/db/database.dart';
 import '../../../core/theme/tokens.dart';
+import '../../../core/widgets/color_field_card.dart';
 import '../../../l10n/app_localizations.dart';
 import 'motivation_providers.dart';
 
@@ -17,36 +18,38 @@ class DashboardWhyCard extends ConsumerWidget {
     final theme = Theme.of(context);
     final Motivation? why = ref.watch(dailyWhyProvider);
 
-    return Card(
-      child: InkWell(
-        borderRadius: BorderRadius.circular(AppRadius.lg),
-        onTap: () => context.push('/motivation'),
-        child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.xl),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    // Berry colour field with white text — the mockup's `.card-why`. Emotional,
+    // personal content earns a full colour field rather than a neutral card.
+    final Color labelColor = Colors.white.withValues(alpha: 0.7);
+    return ColorFieldCard(
+      fill: AppColors.brandBerry,
+      onTap: () => context.push('/motivation'),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.format_quote_rounded,
-                    size: 20,
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                  const SizedBox(width: AppSpacing.sm),
-                  Text(l10n.dashWhyTitle, style: theme.textTheme.labelMedium),
-                ],
+              Icon(
+                Icons.format_quote_rounded,
+                size: 20,
+                color: labelColor,
               ),
-              const SizedBox(height: AppSpacing.md),
+              const SizedBox(width: AppSpacing.sm),
               Text(
-                why?.content ?? l10n.dashWhyEmpty,
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  fontStyle: why == null ? FontStyle.italic : null,
-                ),
+                l10n.dashWhyTitle,
+                style: theme.textTheme.labelMedium?.copyWith(color: labelColor),
               ),
             ],
           ),
-        ),
+          const SizedBox(height: AppSpacing.md),
+          Text(
+            why?.content ?? l10n.dashWhyEmpty,
+            style: theme.textTheme.titleLarge?.copyWith(
+              color: Colors.white,
+              fontStyle: why == null ? FontStyle.italic : null,
+            ),
+          ),
+        ],
       ),
     );
   }

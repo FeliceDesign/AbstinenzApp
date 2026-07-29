@@ -156,8 +156,9 @@ English.
         calm radial gold wave + shareable graphic (`screenshot` + `share_plus`)
   - [x] Tests: milestone status (reached/next/progress) + preset seeding
 - [x] **Phase 9 — Export/import, app lock, settings, polish, A11y + rebrand**
-  - [x] Renamed the app to **Chainless** (l10n, onboarding, Android label, iOS
-        display name; package id stays `clean_tracker`)
+  - [x] Renamed the app to **Unbound** (l10n, onboarding, Android label, iOS
+        display name; package id stays `clean_tracker`). The main-screen
+        wordmark uses **Fredoka** (bold, rounded, playful display face).
   - [x] **Light-first "dawn-berry" restyle** per the style guide: single
         swappable `AppPalette` (5 brand anchors + interpolated ends) + warm
         neutrals; `AppColors` is the semantic layer. Theme follows the system

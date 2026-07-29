@@ -134,7 +134,20 @@ class _PromptTile extends StatelessWidget {
           padding: const EdgeInsets.all(AppSpacing.xl),
           child: Row(
             children: <Widget>[
-              const Icon(Icons.savings_outlined, color: AppColors.brandSand),
+              // Coloured icon-badge on a neutral card — the mockup's
+              // `.card-savings`, the one card that stays neutral per screen.
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: AppColors.brandSkyLight,
+                  borderRadius: BorderRadius.circular(AppRadius.sm),
+                ),
+                child: const Icon(
+                  Icons.savings_rounded,
+                  color: AppColors.brandSkyOnLight,
+                ),
+              ),
               const SizedBox(width: AppSpacing.lg),
               Expanded(
                 child: Column(

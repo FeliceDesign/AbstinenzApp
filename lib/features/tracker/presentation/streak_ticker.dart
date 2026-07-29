@@ -18,6 +18,7 @@ class StreakTicker extends StatefulWidget {
     required this.startedAt,
     required this.clock,
     this.detailed = true,
+    this.onField = false,
     super.key,
   });
 
@@ -26,6 +27,11 @@ class StreakTicker extends StatefulWidget {
 
   /// When false, only the day count is shown ("days only" mode).
   final bool detailed;
+
+  /// When true the ticker sits on a coloured field (the hero card): the day
+  /// label and clock switch to inverted (translucent white) so they read on
+  /// the field instead of the neutral surface colour.
+  final bool onField;
 
   @override
   State<StreakTicker> createState() => _StreakTickerState();
@@ -92,6 +98,12 @@ class _StreakTickerState extends State<StreakTicker>
     final String clock =
         '${_two(parts.hours)}:${_two(parts.minutes)}:${_two(parts.seconds)}';
     final bool reduceMotion = MediaQuery.of(context).disableAnimations;
+    final Color labelColor = widget.onField
+        ? Colors.white.withValues(alpha: 0.85)
+        : theme.colorScheme.onSurfaceVariant;
+    final Color clockColor = widget.onField
+        ? Colors.white
+        : theme.colorScheme.onSurfaceVariant;
 
     return Semantics(
       label: l10n.streakSemantics(parts.days, clock),
@@ -116,11 +128,16 @@ class _StreakTickerState extends State<StreakTicker>
           ),
           Text(
             l10n.streakDaysLabel(parts.days),
-            style: theme.textTheme.bodyMedium,
+            style: theme.textTheme.bodyMedium?.copyWith(color: labelColor),
           ),
           if (widget.detailed) ...[
             const SizedBox(height: AppSpacing.md),
-            _ClockLine(text: clock, reduceMotion: reduceMotion, theme: theme),
+            _ClockLine(
+              text: clock,
+              reduceMotion: reduceMotion,
+              theme: theme,
+              color: clockColor,
+            ),
           ],
         ],
       ),
@@ -135,17 +152,19 @@ class _ClockLine extends StatelessWidget {
     required this.text,
     required this.reduceMotion,
     required this.theme,
+    required this.color,
   });
 
   final String text;
   final bool reduceMotion;
   final ThemeData theme;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     final TextStyle style = theme.textTheme.headlineMedium!.copyWith(
       fontFeatures: AppFonts.tabular,
-      color: theme.colorScheme.onSurfaceVariant,
+      color: color,
     );
     final Widget child = Text(text, key: ValueKey(text), style: style);
     if (reduceMotion) return child;

@@ -30,7 +30,7 @@ class DataRepository {
   /// user fully owns their data (spec: local-first, export/import).
   Future<String> exportJson() async {
     final Map<String, dynamic> data = <String, dynamic>{
-      'app': 'chainless',
+      'app': 'unbound',
       'schemaVersion': _db.schemaVersion,
       'habits':
           (await _db.select(_db.habits).get()).map((e) => e.toJson()).toList(),

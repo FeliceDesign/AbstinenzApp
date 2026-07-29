@@ -43,9 +43,18 @@ class DashboardScreen extends ConsumerWidget {
                       AppSpacing.xl,
                       AppSpacing.md,
                     ),
+                    // The app name is the one expressive wordmark in the app:
+                    // a bold, rounded, playful display face (Fredoka).
                     child: Text(
                       l10n.appTitle,
-                      style: theme.textTheme.titleLarge,
+                      style: TextStyle(
+                        fontFamily: AppFonts.brand,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 34,
+                        height: 1.0,
+                        letterSpacing: -0.5,
+                        color: theme.colorScheme.onSurface,
+                      ),
                     ),
                   ),
                 ),
@@ -127,7 +136,7 @@ class _HabitCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 320,
+      height: 360,
       child: PageView.builder(
         controller: PageController(viewportFraction: 0.9),
         itemCount: habits.length,

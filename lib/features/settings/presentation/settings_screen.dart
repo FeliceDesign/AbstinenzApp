@@ -145,7 +145,7 @@ class SettingsScreen extends ConsumerWidget {
     try {
       final String json = await ref.read(dataRepositoryProvider).exportJson();
       final Directory dir = await getTemporaryDirectory();
-      final File file = File('${dir.path}/chainless-export.json');
+      final File file = File('${dir.path}/unbound-export.json');
       await file.writeAsString(json);
       await Share.shareXFiles(<XFile>[XFile(file.path)]);
     } catch (_) {

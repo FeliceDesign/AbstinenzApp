@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "appTitle": "Chainless",
+  "appTitle": "Unbound",
   "@appTitle": {
     "description": "The application name shown in the launcher and app bar."
   },
@@ -60,7 +60,7 @@
   "unitPorn": "session",
   "unitOther": "unit",
 
-  "onbWelcomeTitle": "Welcome to Chainless",
+  "onbWelcomeTitle": "Welcome to Unbound",
   "onbWelcomeBody": "A calm, private space to track your clean time. Everything stays on your device — no account, no cloud.",
   "onbDisclaimer": "This app is not a medical product and does not replace medical or therapeutic care.",
   "onbAlcoholWarning": "Stopping alcohol abruptly can be medically dangerous (seizures, delirium). Please seek medical advice before quitting.",
@@ -510,7 +510,7 @@
   "setImportDone": "Data imported",
   "setTransferError": "That didn't work. Please check the file and try again.",
 
-  "lockTitle": "Chainless is locked",
+  "lockTitle": "Unbound is locked",
   "lockUnlock": "Unlock",
-  "lockReason": "Unlock Chainless"
+  "lockReason": "Unlock Unbound"
 }

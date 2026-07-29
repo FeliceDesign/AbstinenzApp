@@ -56,6 +56,18 @@ class AppColors {
   /// Darkened sky for the rare "sky as text on a light surface" need.
   static const Color brandSkyOnLight = Color(0xFF2B7FBF);
 
+  /// Deep sky — the hero streak card's colour field. White clears WCAG AA on
+  /// both ends of this gradient (#4A8FC7 ~4.6:1, #3D77AD ~5.6:1).
+  static const Color brandSkyDeep = Color(0xFF4A8FC7);
+  static const Color brandSkyDeepEnd = Color(0xFF3D77AD);
+
+  /// The dashboard hero gradient (matches the reference mockup's `.card-hero`).
+  static const LinearGradient heroGradient = LinearGradient(
+    begin: Alignment(-0.7, -1),
+    end: Alignment(0.7, 1),
+    colors: <Color>[brandSkyDeep, brandSkyDeepEnd],
+  );
+
   /// Gold — achievement / progress. Streak ticker, milestone rings.
   static const Color brandGold = AppPalette.scale400;
 
@@ -149,6 +161,12 @@ class AppMotion {
 /// same friendly-geometric character.
 class AppFonts {
   const AppFonts._();
+
+  /// Brand / wordmark. A bold, rounded, playful-expressive display face used
+  /// for the app name on the main screen — the one place the product gets to
+  /// feel like a character, not a utility. Fredoka is bundled locally so the
+  /// app stays fully offline.
+  static const String brand = 'Fredoka';
 
   /// Display / numeric. Use with tabular figures for the ticker.
   static const String display = 'SpaceGrotesk';

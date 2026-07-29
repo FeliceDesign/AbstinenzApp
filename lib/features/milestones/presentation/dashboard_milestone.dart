@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/db/database.dart';
 import '../../../core/theme/tokens.dart';
+import '../../../core/widgets/color_field_card.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../savings/presentation/live_now.dart';
 import '../../tracker/presentation/tracker_providers.dart';
@@ -37,73 +38,71 @@ class DashboardNextMilestone extends ConsumerWidget {
         attempts.where((QuitAttempt a) => a.endedAt == null).firstOrNull;
     if (active == null) return const SizedBox.shrink();
 
-    return Card(
-      child: InkWell(
-        borderRadius: BorderRadius.circular(AppRadius.lg),
-        onTap: () => context.push('/milestones'),
-        child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.xl),
-          child: LiveNow(
-            clock: ref.watch(clockProvider),
-            builder: (BuildContext context, DateTime now) {
-              final MilestoneTimeline t = milestoneTimeline(
-                milestones.map((Milestone m) => m.thresholdSeconds).toList(),
-                now.difference(active.startedAt),
-              );
-              final bool allDone = t.nextThresholdSeconds == null;
-              return Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 52,
-                    height: 52,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: <Widget>[
-                        CircularProgressIndicator(
-                          value: t.fractionToNext,
-                          strokeWidth: 5,
-                          backgroundColor:
-                              theme.colorScheme.surfaceContainerHighest,
-                          valueColor: const AlwaysStoppedAnimation<Color>(
-                            AppColors.brandGold,
-                          ),
-                        ),
-                        const Icon(
-                          Icons.emoji_events_rounded,
-                          size: 20,
-                          color: AppColors.brandGold,
-                        ),
-                      ],
+    // Sand colour field with dark ink text — the mockup's `.card-milestone`.
+    const Color onSand = AppColors.lightTextPrimary;
+    return ColorFieldCard(
+      fill: AppColors.brandGold,
+      onFill: onSand,
+      onTap: () => context.push('/milestones'),
+      child: LiveNow(
+        clock: ref.watch(clockProvider),
+        builder: (BuildContext context, DateTime now) {
+          final MilestoneTimeline t = milestoneTimeline(
+            milestones.map((Milestone m) => m.thresholdSeconds).toList(),
+            now.difference(active.startedAt),
+          );
+          final bool allDone = t.nextThresholdSeconds == null;
+          return Row(
+            children: <Widget>[
+              SizedBox(
+                width: 52,
+                height: 52,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    CircularProgressIndicator(
+                      value: t.fractionToNext,
+                      strokeWidth: 5,
+                      backgroundColor: AppColors.brandBerry.withValues(
+                        alpha: 0.2,
+                      ),
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                        AppColors.brandBerry,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: AppSpacing.lg),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          allDone ? l10n.msAllReached : l10n.msNext,
-                          style: theme.textTheme.labelMedium,
-                        ),
-                        const SizedBox(height: AppSpacing.xs),
-                        Text(
-                          allDone
-                              ? l10n.msTitle
-                              : shortDuration(t.nextThresholdSeconds!),
-                          style: theme.textTheme.titleLarge,
-                        ),
-                      ],
+                    const Icon(
+                      Icons.emoji_events_rounded,
+                      size: 20,
+                      color: AppColors.brandBerry,
                     ),
-                  ),
-                  Icon(
-                    Icons.chevron_right_rounded,
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: AppSpacing.lg),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      allDone ? l10n.msAllReached : l10n.msNext,
+                      style: theme.textTheme.labelMedium
+                          ?.copyWith(color: AppColors.brandBerry),
+                    ),
+                    const SizedBox(height: AppSpacing.xs),
+                    Text(
+                      allDone
+                          ? l10n.msTitle
+                          : shortDuration(t.nextThresholdSeconds!),
+                      style: theme.textTheme.titleLarge
+                          ?.copyWith(color: onSand),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right_rounded, color: onSand),
+            ],
+          );
+        },
       ),
     );
   }

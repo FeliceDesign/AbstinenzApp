@@ -77,6 +77,12 @@ flutter:
   generate: true
 
   fonts:
+    - family: Fredoka
+      fonts:
+        - asset: assets/fonts/Fredoka-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Fredoka-Bold.ttf
+          weight: 700
     - family: SpaceGrotesk
       fonts:
         - asset: assets/fonts/SpaceGrotesk-Medium.ttf
