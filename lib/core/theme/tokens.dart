@@ -41,6 +41,16 @@ class AppPalette {
   static const Color n600 = Color(0xFF5E5650);
   static const Color n800 = Color(0xFF332E2A);
   static const Color n950 = Color(0xFF0F0D0C);
+
+  // Warm cream ramp — the light-mode ground. The page background is the
+  // lightest cream; neutral cards sit one step darker and a touch more
+  // saturated, so a white-ish card reads as warm cream rather than stark white.
+  static const Color cream0 = Color(0xFFF7F1E7); // page background (light cream)
+  static const Color cream1 = Color(0xFFF0E7D5); // card surface (deeper cream)
+  static const Color cream2 = Color(0xFFE9DFCA); // raised surface
+  static const Color cream3 = Color(0xFFE1D5BC); // high surface
+  static const Color creamLine = Color(0xFFE0D5BF); // borders on cream
+  static const Color creamLineSubtle = Color(0xFFEBE1CE);
 }
 
 class AppColors {
@@ -77,17 +87,22 @@ class AppColors {
   /// Berry — the light-mode accent (primary actions) and the urge signal.
   static const Color brandBerry = AppPalette.scale700;
 
+  /// Clay — a warm terracotta reserved for reflective / personal colour fields
+  /// (the "your why" card). Chosen so it stays distinct from the berry urge
+  /// signal that floats over it, and dark enough for AA white text (~4.8:1).
+  static const Color brandClay = Color(0xFFB4574B);
+
   /// Semantic status colours, fixed independent of palette.
   static const Color success = Color(0xFF6FA97C);
   static const Color error = Color(0xFFC7554A);
 
-  // --- Light neutrals (default theme) ---------------------------------------
-  static const Color lightBgBase = AppPalette.n50;
-  static const Color lightBgSurface = AppPalette.n0;
-  static const Color lightBgSurfaceRaised = AppPalette.n100;
-  static const Color lightBgSurfaceHigh = AppPalette.n200;
-  static const Color lightOutline = AppPalette.n200;
-  static const Color lightOutlineSubtle = AppPalette.n100;
+  // --- Light neutrals (default theme, warm cream) ---------------------------
+  static const Color lightBgBase = AppPalette.cream0;
+  static const Color lightBgSurface = AppPalette.cream1;
+  static const Color lightBgSurfaceRaised = AppPalette.cream2;
+  static const Color lightBgSurfaceHigh = AppPalette.cream3;
+  static const Color lightOutline = AppPalette.creamLine;
+  static const Color lightOutlineSubtle = AppPalette.creamLineSubtle;
   static const Color lightTextPrimary = AppPalette.n800;
   static const Color lightTextSecondary = AppPalette.n600;
   static const Color lightTextTertiary = AppPalette.n400;

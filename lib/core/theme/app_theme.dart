@@ -14,7 +14,6 @@ class AppTheme {
 
   static ThemeData light() => _build(
         brightness: Brightness.light,
-        isLight: true,
         bgBase: AppColors.lightBgBase,
         surface: AppColors.lightBgSurface,
         surfaceRaised: AppColors.lightBgSurfaceRaised,
@@ -31,7 +30,6 @@ class AppTheme {
 
   static ThemeData dark() => _build(
         brightness: Brightness.dark,
-        isLight: false,
         bgBase: AppColors.darkBgBase,
         surface: AppColors.darkBgSurface,
         surfaceRaised: AppColors.darkBgSurfaceRaised,
@@ -48,7 +46,6 @@ class AppTheme {
 
   static ThemeData _build({
     required Brightness brightness,
-    required bool isLight,
     required Color bgBase,
     required Color surface,
     required Color surfaceRaised,
@@ -86,17 +83,17 @@ class AppTheme {
 
     final TextTheme textTheme = _textTheme(textPrimary, textSecondary);
 
-    // Light: a soft shadow, no hard border. Dark: a border, no shadow.
+    // Cream cards sit one step darker than the cream page, so a hairline warm
+    // border defines them more cleanly than a drop shadow (which would fight
+    // the darker-than-background fill). Dark keeps its border, no shadow.
     final CardThemeData cardTheme = CardThemeData(
       color: surface,
       surfaceTintColor: Colors.transparent,
-      elevation: isLight ? 1 : 0,
-      shadowColor: isLight ? const Color(0x14000000) : Colors.transparent,
+      elevation: 0,
+      shadowColor: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppRadius.lg),
-        side: isLight
-            ? BorderSide.none
-            : BorderSide(color: outlineSubtle),
+        side: BorderSide(color: outlineSubtle),
       ),
     );
 

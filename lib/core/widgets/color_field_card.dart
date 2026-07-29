@@ -18,7 +18,6 @@ class ColorFieldCard extends StatelessWidget {
     this.onFill = Colors.white,
     this.padding = const EdgeInsets.all(AppSpacing.xl),
     this.onTap,
-    this.decorative = false,
     this.semanticLabel,
     super.key,
   }) : assert(
@@ -39,10 +38,6 @@ class ColorFieldCard extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final VoidCallback? onTap;
 
-  /// Draws the soft translucent circle bleeding off the top-right corner, as in
-  /// the mockup's hero card. Reserved for the hero to keep it distinctive.
-  final bool decorative;
-
   final String? semanticLabel;
 
   final Widget child;
@@ -51,27 +46,7 @@ class ColorFieldCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final BorderRadius radius = BorderRadius.circular(AppRadius.lg);
 
-    Widget content = Padding(padding: padding, child: child);
-
-    if (decorative) {
-      content = Stack(
-        children: <Widget>[
-          Positioned(
-            top: -60,
-            right: -60,
-            child: Container(
-              width: 180,
-              height: 180,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: onFill.withValues(alpha: 0.08),
-              ),
-            ),
-          ),
-          content,
-        ],
-      );
-    }
+    final Widget content = Padding(padding: padding, child: child);
 
     // The colour field carries the content colour to every descendant, so
     // child widgets can rely on the ambient icon/text colour being inverted.

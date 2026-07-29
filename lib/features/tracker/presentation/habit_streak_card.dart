@@ -34,7 +34,6 @@ class HabitStreakCard extends ConsumerWidget {
 
     return ColorFieldCard(
       gradient: AppColors.heroGradient,
-      decorative: true,
       child: attemptsAsync.when(
         loading: () => const SizedBox(
           height: 220,
