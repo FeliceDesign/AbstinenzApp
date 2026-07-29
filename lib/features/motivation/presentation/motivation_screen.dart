@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/db/database.dart';
 import '../../../core/theme/tokens.dart';
+import '../../../core/widgets/color_field_card.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../tracker/presentation/tracker_providers.dart';
 import '../domain/benefit_presets.dart';
@@ -111,9 +112,16 @@ class _KindTab extends ConsumerWidget {
                 },
                 itemBuilder: (context, i) {
                   final m = items[i];
+                  // Emotional, personal statements sit on warm colour fields
+                  // (style guide): clay for a "why", deep wine for a
+                  // consequence. Berry stays reserved for the urge flow.
+                  final Color fill = kind == MotivationKind.consequence
+                      ? AppPalette.scale800
+                      : AppColors.brandClay;
                   return _MotivationTile(
                     key: ValueKey(m.id),
                     motivation: m,
+                    fill: fill,
                     onTap: () => _edit(context, ref, m),
                     onTogglePin: () => repo.setPinned(m.id, !m.isPinned),
                   );
@@ -277,36 +285,54 @@ class _BenefitsTab extends ConsumerWidget {
 class _MotivationTile extends StatelessWidget {
   const _MotivationTile({
     required this.motivation,
+    required this.fill,
     required this.onTap,
     required this.onTogglePin,
     super.key,
   });
 
   final Motivation motivation;
+  final Color fill;
   final VoidCallback onTap;
   final VoidCallback onTogglePin;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return Card(
-      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
-      child: ListTile(
-        leading: IconButton(
-          tooltip: motivation.isPinned ? l10n.motUnpin : l10n.motPin,
-          icon: Icon(
-            motivation.isPinned
-                ? Icons.push_pin_rounded
-                : Icons.push_pin_outlined,
-            color: motivation.isPinned
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.onSurfaceVariant,
-          ),
-          onPressed: onTogglePin,
-        ),
-        title: Text(motivation.content),
-        trailing: const Icon(Icons.drag_handle_rounded),
+    final theme = Theme.of(context);
+    final Color faint = Colors.white.withValues(alpha: 0.7);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+      child: ColorFieldCard(
+        fill: fill,
         onTap: onTap,
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.sm,
+          vertical: AppSpacing.xs,
+        ),
+        child: Row(
+          children: [
+            IconButton(
+              tooltip: motivation.isPinned ? l10n.motUnpin : l10n.motPin,
+              icon: Icon(
+                motivation.isPinned
+                    ? Icons.push_pin_rounded
+                    : Icons.push_pin_outlined,
+                color: motivation.isPinned ? Colors.white : faint,
+              ),
+              onPressed: onTogglePin,
+            ),
+            Expanded(
+              child: Text(
+                motivation.content,
+                style: theme.textTheme.bodyLarge?.copyWith(color: Colors.white),
+              ),
+            ),
+            const SizedBox(width: AppSpacing.sm),
+            Icon(Icons.drag_handle_rounded, color: faint),
+            const SizedBox(width: AppSpacing.sm),
+          ],
+        ),
       ),
     );
   }

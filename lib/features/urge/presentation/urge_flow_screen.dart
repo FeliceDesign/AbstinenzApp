@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/tokens.dart';
+import '../../../core/widgets/color_field_card.dart';
 import '../../../l10n/app_localizations.dart';
 import '../domain/urge_technique.dart';
 import 'techniques.dart';
@@ -107,6 +108,7 @@ class _IntensityStep extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
+    final Color faint = Colors.white.withValues(alpha: 0.75);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -115,26 +117,60 @@ class _IntensityStep extends StatelessWidget {
           textAlign: TextAlign.center,
           style: theme.textTheme.headlineMedium,
         ),
-        const SizedBox(height: AppSpacing.xxl),
-        Text(
-          '$value',
-          style: theme.textTheme.displayLarge
-              ?.copyWith(color: theme.colorScheme.primary),
-        ),
-        Slider(
-          value: value.toDouble(),
-          min: 1,
-          max: 10,
-          divisions: 9,
-          label: '$value',
-          onChanged: (v) => onChanged(v.round()),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(l10n.urgeScaleLow, style: theme.textTheme.bodySmall),
-            Text(l10n.urgeScaleHigh, style: theme.textTheme.bodySmall),
-          ],
+        const SizedBox(height: AppSpacing.xl),
+        // The intensity value is the one thing to see here — a berry hero
+        // field, the urge flow's exclusive colour, with the value huge in
+        // white and a white slider on top.
+        ColorFieldCard(
+          fill: AppColors.brandBerry,
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.xl,
+            AppSpacing.xxl,
+            AppSpacing.xl,
+            AppSpacing.xl,
+          ),
+          child: Column(
+            children: [
+              Text(
+                '$value',
+                style: theme.textTheme.displayLarge
+                    ?.copyWith(color: Colors.white),
+              ),
+              const SizedBox(height: AppSpacing.sm),
+              SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+                  activeTrackColor: Colors.white,
+                  inactiveTrackColor: Colors.white.withValues(alpha: 0.28),
+                  thumbColor: Colors.white,
+                  overlayColor: Colors.white.withValues(alpha: 0.20),
+                  valueIndicatorColor: Colors.white,
+                  valueIndicatorTextStyle:
+                      const TextStyle(color: AppColors.brandBerry),
+                ),
+                child: Slider(
+                  value: value.toDouble(),
+                  min: 1,
+                  max: 10,
+                  divisions: 9,
+                  label: '$value',
+                  onChanged: (v) => onChanged(v.round()),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    l10n.urgeScaleLow,
+                    style: theme.textTheme.bodySmall?.copyWith(color: faint),
+                  ),
+                  Text(
+                    l10n.urgeScaleHigh,
+                    style: theme.textTheme.bodySmall?.copyWith(color: faint),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
         const SizedBox(height: AppSpacing.xxl),
         SizedBox(
@@ -175,10 +211,11 @@ class _ChooseTechnique extends StatelessWidget {
             crossAxisSpacing: AppSpacing.md,
             childAspectRatio: 1.3,
             children: [
-              for (final t in UrgeTechnique.values)
+              for (final (int i, UrgeTechnique t) in UrgeTechnique.values.indexed)
                 _TechniqueTile(
                   technique: t,
                   label: techniqueName(l10n, t),
+                  tone: _tileTones[i % _tileTones.length],
                   onTap: () => onSelected(t),
                 ),
             ],
@@ -189,42 +226,49 @@ class _ChooseTechnique extends StatelessWidget {
   }
 }
 
+/// (fill, on-fill) tone pairs the six technique tiles rotate through — enough
+/// variety that the grid reads as distinct tiles without each colour carrying
+/// meaning (per the style guide's note on the choose-technique screen).
+const List<(Color, Color)> _tileTones = <(Color, Color)>[
+  (AppColors.brandSky, AppColors.lightTextPrimary),
+  (AppColors.brandGold, AppColors.lightTextPrimary),
+  (AppColors.brandClay, Colors.white),
+];
+
 class _TechniqueTile extends StatelessWidget {
   const _TechniqueTile({
     required this.technique,
     required this.label,
+    required this.tone,
     required this.onTap,
   });
 
   final UrgeTechnique technique;
   final String label;
+  final (Color, Color) tone;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return InkWell(
+    final Color on = tone.$2;
+    return ColorFieldCard(
+      fill: tone.$1,
+      onFill: on,
       onTap: onTap,
-      borderRadius: BorderRadius.circular(AppRadius.lg),
-      child: Container(
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceContainer,
-          borderRadius: BorderRadius.circular(AppRadius.lg),
-          border: Border.all(color: theme.colorScheme.outlineVariant),
-        ),
-        padding: const EdgeInsets.all(AppSpacing.lg),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(technique.icon, size: 32, color: theme.colorScheme.primary),
-            const SizedBox(height: AppSpacing.sm),
-            Text(
-              label,
-              textAlign: TextAlign.center,
-              style: theme.textTheme.bodyMedium,
-            ),
-          ],
-        ),
+      padding: const EdgeInsets.all(AppSpacing.lg),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(technique.icon, size: 32, color: on),
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: theme.textTheme.bodyMedium
+                ?.copyWith(color: on, fontWeight: FontWeight.w600),
+          ),
+        ],
       ),
     );
   }

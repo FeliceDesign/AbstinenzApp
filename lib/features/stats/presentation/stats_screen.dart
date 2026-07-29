@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/theme/tokens.dart';
 import '../../../core/utils/dates.dart';
+import '../../../core/widgets/color_field_card.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../checkin/presentation/checkin_providers.dart';
 import '../../mood/domain/mood_stats.dart';
@@ -218,23 +219,25 @@ class _CheckinStreakCard extends ConsumerWidget {
     final ThemeData theme = Theme.of(context);
     final int streak = ref.watch(checkinStreakCountProvider);
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.xl),
-        child: Row(
-          children: <Widget>[
-            Icon(Icons.event_repeat_rounded, color: theme.colorScheme.primary),
-            const SizedBox(width: AppSpacing.lg),
-            Expanded(
-              child: Text(
-                streak > 0
-                    ? l10n.checkinStreakLabel(streak)
-                    : l10n.statsCheckinNone,
-                style: theme.textTheme.bodyLarge,
-              ),
+    // The check-in streak is the achievement figure on this screen, so it gets
+    // a warm gold field with dark ink text; the observation cards stay neutral.
+    return ColorFieldCard(
+      fill: AppColors.brandGold,
+      onFill: AppColors.lightTextPrimary,
+      child: Row(
+        children: <Widget>[
+          const Icon(Icons.event_repeat_rounded, color: AppColors.brandBerry),
+          const SizedBox(width: AppSpacing.lg),
+          Expanded(
+            child: Text(
+              streak > 0
+                  ? l10n.checkinStreakLabel(streak)
+                  : l10n.statsCheckinNone,
+              style: theme.textTheme.bodyLarge
+                  ?.copyWith(color: AppColors.lightTextPrimary),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

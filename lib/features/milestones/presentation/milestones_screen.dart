@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/db/database.dart';
 import '../../../core/theme/tokens.dart';
+import '../../../core/widgets/color_field_card.dart';
 import '../../savings/presentation/live_now.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../tracker/presentation/tracker_providers.dart';
@@ -183,45 +184,55 @@ class _NextRing extends StatelessWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ThemeData theme = Theme.of(context);
     final bool allDone = timeline.nextThresholdSeconds == null;
+    const Color onGold = AppColors.lightTextPrimary;
 
-    return Center(
-      child: SizedBox(
-        width: 180,
-        height: 180,
-        child: Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            SizedBox(
-              width: 180,
-              height: 180,
-              child: CircularProgressIndicator(
-                value: timeline.fractionToNext,
-                strokeWidth: 10,
-                backgroundColor: theme.colorScheme.surfaceContainerHighest,
-                valueColor: const AlwaysStoppedAnimation<Color>(
-                  AppColors.brandGold,
-                ),
-              ),
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  allDone ? l10n.msAllReached : l10n.msNext,
-                  style: theme.textTheme.labelMedium,
-                ),
-                const SizedBox(height: AppSpacing.xs),
-                Text(
-                  allDone
-                      ? '★'
-                      : shortDuration(timeline.nextThresholdSeconds!),
-                  style: theme.textTheme.headlineMedium?.copyWith(
-                    fontFeatures: AppFonts.tabular,
+    // The next milestone is the hero of this screen: a gold field with a big
+    // berry progress ring, echoing the dashboard's milestone card.
+    return ColorFieldCard(
+      fill: AppColors.brandGold,
+      onFill: onGold,
+      padding: const EdgeInsets.all(AppSpacing.xxl),
+      child: Center(
+        child: SizedBox(
+          width: 180,
+          height: 180,
+          child: Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              SizedBox(
+                width: 180,
+                height: 180,
+                child: CircularProgressIndicator(
+                  value: timeline.fractionToNext,
+                  strokeWidth: 10,
+                  backgroundColor: AppColors.brandBerry.withValues(alpha: 0.18),
+                  valueColor: const AlwaysStoppedAnimation<Color>(
+                    AppColors.brandBerry,
                   ),
                 ),
-              ],
-            ),
-          ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    allDone ? l10n.msAllReached : l10n.msNext,
+                    style: theme.textTheme.labelMedium
+                        ?.copyWith(color: AppColors.brandBerry),
+                  ),
+                  const SizedBox(height: AppSpacing.xs),
+                  Text(
+                    allDone
+                        ? '★'
+                        : shortDuration(timeline.nextThresholdSeconds!),
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      fontFeatures: AppFonts.tabular,
+                      color: onGold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
