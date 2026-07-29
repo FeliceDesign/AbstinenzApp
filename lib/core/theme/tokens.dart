@@ -13,10 +13,13 @@ import 'package:flutter/widgets.dart';
 ///  - textPrimary (#332E2A) on bg (#F9F8F7) -> ~11.6:1 (AAA)
 ///  - textSecondary (#5E5650) on surface (#FFFFFF) -> ~7.0:1 (AA)
 ///  - white (#FFFFFF) on accent/berry (#952D5D) -> ~7.4:1 (AA)
-///  - dark text (#332E2A) on gold (#F2D197) -> ~9.9:1 (AAA)
-/// Dark mode:
-///  - textPrimary (#F9F8F7) on bg (#0F0D0C) -> ~17:1 (AAA)
-///  - dark text (#0F0D0C) on sky accent (#8CC6F2) -> ~9.7:1 (AAA)
+///  - dark text (#3A322B) on gold (#F2D197) -> ~9.6:1 (AAA)
+/// Dark mode is a **designed** warm-dark, not an inversion (see style guide §5):
+/// a warm-brown ground (#221A16) instead of near-black so the colourful cards
+/// read as glowing and cozy, berry is lifted to keep its signal, text is warm
+/// cream.
+///  - textPrimary (#F5ECE3) on bg (#221A16) -> ~13:1 (AAA)
+///  - white on lifted berry (#C2477A) -> ~3.7:1 (AA large / UI)
 class AppPalette {
   const AppPalette._();
 
@@ -39,7 +42,7 @@ class AppPalette {
   static const Color n200 = Color(0xFFE2DEDA);
   static const Color n400 = Color(0xFF9C948C);
   static const Color n600 = Color(0xFF5E5650);
-  static const Color n800 = Color(0xFF332E2A);
+  static const Color n800 = Color(0xFF3A322B);
   static const Color n950 = Color(0xFF0F0D0C);
 
   // Warm cream ramp — the light-mode ground. The page background is the
@@ -87,6 +90,13 @@ class AppColors {
   /// Berry — the light-mode accent (primary actions) and the urge signal.
   static const Color brandBerry = AppPalette.scale700;
 
+  /// Berry, lifted for dark mode (style guide §5.1): the flat `#952D5D` goes
+  /// muddy on a dark ground, so berry is raised and saturated so the urge FAB
+  /// and berry accents keep their signal. Used only where berry sits *on* the
+  /// dark page (accent role), never for berry colour-fields (which keep white
+  /// text at full contrast on the un-lifted berry).
+  static const Color brandBerryLifted = Color(0xFFC2477A);
+
   /// Clay — a warm terracotta reserved for reflective / personal colour fields
   /// (the "your why" card). Chosen so it stays distinct from the berry urge
   /// signal that floats over it, and dark enough for AA white text (~4.8:1).
@@ -107,16 +117,18 @@ class AppColors {
   static const Color lightTextSecondary = AppPalette.n600;
   static const Color lightTextTertiary = AppPalette.n400;
 
-  // --- Dark neutrals (warm, full-featured option) ---------------------------
-  static const Color darkBgBase = AppPalette.n950;
-  static const Color darkBgSurface = AppPalette.n800;
-  static const Color darkBgSurfaceRaised = Color(0xFF221E1B);
-  static const Color darkBgSurfaceHigh = Color(0xFF2A2521);
-  static const Color darkOutline = Color(0xFF3A342F);
-  static const Color darkOutlineSubtle = Color(0xFF2A2521);
-  static const Color darkTextPrimary = AppPalette.n50;
-  static const Color darkTextSecondary = AppPalette.n400;
-  static const Color darkTextTertiary = Color(0xFF7A716A);
+  // --- Dark neutrals (designed warm-dark, not an inversion; guide §5) --------
+  // A warm-brown ground and warm-brown card surfaces (never pure black), so the
+  // colourful cards read as glowing/cozy rather than a generic dark utility.
+  static const Color darkBgBase = Color(0xFF221A16); // warm brown page
+  static const Color darkBgSurface = Color(0xFF2B211C); // cards / navbar
+  static const Color darkBgSurfaceRaised = Color(0xFF34281F);
+  static const Color darkBgSurfaceHigh = Color(0xFF3E2F24);
+  static const Color darkOutline = Color(0xFF453A31);
+  static const Color darkOutlineSubtle = Color(0xFF31271F);
+  static const Color darkTextPrimary = Color(0xFFF5ECE3); // warm cream text
+  static const Color darkTextSecondary = Color(0xFFB8A99C);
+  static const Color darkTextTertiary = Color(0xFF8A7C6E);
 
   /// Scrims used for modal overlays.
   static Color darkScrim = AppPalette.n950.withValues(alpha: 0.72);
@@ -146,17 +158,22 @@ class AppSpacing {
   static const double huge = 64;
 }
 
-/// Corner radius scale. Generous rounding carries the "inviting" requirement.
+/// Corner radius scale — cozy and pillowy (style guide §4). The defining move of
+/// the redesign: the more important/larger a card, the bigger its radius. An
+/// earlier attempt used ~28px on wide cards and only read as "rounded"; cozy
+/// needs conspicuously large radii.
 class AppRadius {
   const AppRadius._();
-  static const double sm = 12;
-  static const double md = 20;
-  static const double lg = 28;
+  static const double sm = 20; // badges, toggle-pills, small controls
+  static const double md = 32; // mini-cards side by side
+  static const double lg = 44; // standard content card (milestone, why)
+  static const double xl = 56; // hero card — the dominant radius on screen
   static const double pill = 999;
 
   static const Radius smR = Radius.circular(sm);
   static const Radius mdR = Radius.circular(md);
   static const Radius lgR = Radius.circular(lg);
+  static const Radius xlR = Radius.circular(xl);
 }
 
 /// Motion durations and curves.
@@ -171,9 +188,9 @@ class AppMotion {
 
 /// Font families (bundled locally, no network fetch — see assets/fonts).
 ///
-/// The style guide favours "General Sans" for display; to keep the app fully
-/// offline we stay with the already-bundled Space Grotesk, which shares the
-/// same friendly-geometric character.
+/// Fredoka carries the display voice (wordmark, headings, streak number,
+/// quotes); Nunito is the body/UI face; Space Grotesk stays on as the numeric
+/// face for live tickers because it ships tabular figures (Fredoka does not).
 class AppFonts {
   const AppFonts._();
 
@@ -183,11 +200,21 @@ class AppFonts {
   /// app stays fully offline.
   static const String brand = 'Fredoka';
 
-  /// Display / numeric. Use with tabular figures for the ticker.
-  static const String display = 'SpaceGrotesk';
+  /// Display — big screen titles, streak number, quotes on colour fields. The
+  /// same rounded "thick felt-tip" face as the wordmark carries the cozy tone
+  /// through every heading (style guide §3).
+  static const String display = 'Fredoka';
 
-  /// Body / UI.
-  static const String body = 'Inter';
+  /// Numeric — live, per-second counters (streak clock, savings/calorie tickers,
+  /// countdowns). Fredoka's digits are proportional and would jitter as they
+  /// update every second; Space Grotesk ships true tabular figures (see
+  /// [tabular]), so live numbers stay perfectly aligned frame to frame.
+  static const String numeric = 'SpaceGrotesk';
+
+  /// Body / UI. Nunito — a rounded humanist sans whose soft terminals carry the
+  /// cozy tone into running text and labels; its digits are already
+  /// tabular-width, so static numbers in body text never jitter either.
+  static const String body = 'Nunito';
 
   /// Tabular figures feature — mandatory for any live-updating number so the
   /// layout does not jump every second.

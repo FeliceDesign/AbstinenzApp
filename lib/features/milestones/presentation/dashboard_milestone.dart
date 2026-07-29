@@ -98,6 +98,8 @@ class DashboardNextMilestone extends ConsumerWidget {
                           : shortDuration(t.nextThresholdSeconds!),
                       style: theme.textTheme.headlineLarge?.copyWith(
                         color: onSand,
+                        // Live countdown: tabular numeric face, no jitter.
+                        fontFamily: AppFonts.numeric,
                         fontFeatures: AppFonts.tabular,
                       ),
                     ),

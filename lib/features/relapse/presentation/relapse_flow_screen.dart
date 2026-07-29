@@ -167,6 +167,7 @@ class _PauseStepState extends State<_PauseStep> {
                   Text(
                     l10n.relWaitRemaining(mmss),
                     style: theme.textTheme.headlineMedium?.copyWith(
+                      fontFamily: AppFonts.numeric,
                       fontFeatures: AppFonts.tabular,
                     ),
                   )

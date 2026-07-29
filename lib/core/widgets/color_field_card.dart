@@ -17,6 +17,7 @@ class ColorFieldCard extends StatelessWidget {
     this.gradient,
     this.onFill = Colors.white,
     this.padding = const EdgeInsets.all(AppSpacing.xl),
+    this.radius = AppRadius.lg,
     this.onTap,
     this.semanticLabel,
     super.key,
@@ -36,6 +37,11 @@ class ColorFieldCard extends StatelessWidget {
   final Color onFill;
 
   final EdgeInsetsGeometry padding;
+
+  /// Corner radius of the field. Defaults to the standard content radius; the
+  /// hero card passes [AppRadius.xl] so it stays the most pillowy card on screen.
+  final double radius;
+
   final VoidCallback? onTap;
 
   final String? semanticLabel;
@@ -44,7 +50,7 @@ class ColorFieldCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BorderRadius radius = BorderRadius.circular(AppRadius.lg);
+    final BorderRadius borderRadius = BorderRadius.circular(radius);
 
     final Widget content = Padding(padding: padding, child: child);
 
@@ -54,18 +60,18 @@ class ColorFieldCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: gradient == null ? fill : null,
         gradient: gradient,
-        borderRadius: radius,
+        borderRadius: borderRadius,
       ),
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
           onTap: onTap,
-          borderRadius: radius,
+          borderRadius: borderRadius,
           child: IconTheme.merge(
             data: IconThemeData(color: onFill),
             child: DefaultTextStyle.merge(
               style: TextStyle(color: onFill),
-              child: ClipRRect(borderRadius: radius, child: content),
+              child: ClipRRect(borderRadius: borderRadius, child: content),
             ),
           ),
         ),

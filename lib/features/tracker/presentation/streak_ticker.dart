@@ -163,6 +163,9 @@ class _ClockLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextStyle style = theme.textTheme.headlineMedium!.copyWith(
+      // Live per-second clock: stay on the tabular numeric face so digits keep
+      // a fixed width and the line does not jitter each second.
+      fontFamily: AppFonts.numeric,
       fontFeatures: AppFonts.tabular,
       color: color,
     );

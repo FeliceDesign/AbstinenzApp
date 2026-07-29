@@ -255,8 +255,10 @@ class _FifteenMinuteState extends State<_FifteenMinute> {
         const SizedBox(height: AppSpacing.xl),
         Text(
           mmss,
-          style: theme.textTheme.displayLarge
-              ?.copyWith(fontFeatures: AppFonts.tabular),
+          style: theme.textTheme.displayLarge?.copyWith(
+            fontFamily: AppFonts.numeric,
+            fontFeatures: AppFonts.tabular,
+          ),
         ),
         const SizedBox(height: AppSpacing.lg),
         Text(

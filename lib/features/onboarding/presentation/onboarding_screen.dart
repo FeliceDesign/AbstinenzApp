@@ -32,6 +32,11 @@ String habitTypeDefaultUnit(AppLocalizations l10n, HabitType type) =>
       HabitType.other => l10n.unitOther,
     };
 
+/// The onboarding flow — a warm, cozy first run rather than a plain form.
+///
+/// Each step opens with a soft, hand-drawn blob badge and a rounded Fredoka
+/// title (see the style guide): the tone the guide asks for — "ich brauche
+/// Halt" — starts here, on the very first screens.
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -165,16 +170,21 @@ class _ProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.xl,
+        AppSpacing.lg,
+        AppSpacing.xl,
+        AppSpacing.sm,
+      ),
       child: Row(
         children: List.generate(total, (i) {
           final bool done = i <= step;
           return Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
+              padding: const EdgeInsets.symmetric(horizontal: 3),
               child: AnimatedContainer(
                 duration: AppMotion.base,
-                height: 4,
+                height: 6,
                 decoration: BoxDecoration(
                   color: done
                       ? theme.colorScheme.primary
@@ -190,22 +200,116 @@ class _ProgressBar extends StatelessWidget {
   }
 }
 
-class _StepScaffold extends StatelessWidget {
-  const _StepScaffold({required this.title, required this.children});
+/// A soft, hand-drawn-feeling blob badge with a centred emoji — the one playful
+/// "sticker" per step the style guide asks for (§4).
+class _BlobBadge extends StatelessWidget {
+  const _BlobBadge({required this.emoji, required this.color});
+  final String emoji;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 76,
+      height: 76,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: color,
+        // Irregular radii read as hand-drawn rather than machine-perfect.
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(38),
+          bottomLeft: Radius.circular(36),
+          bottomRight: Radius.circular(26),
+        ),
+      ),
+      child: Text(emoji, style: const TextStyle(fontSize: 36)),
+    );
+  }
+}
+
+/// Shared cozy step scaffold: blob badge, Fredoka title, optional subtitle,
+/// then the step's own content — generous spacing throughout.
+class _CozyStep extends StatelessWidget {
+  const _CozyStep({
+    required this.emoji,
+    required this.badgeColor,
+    required this.title,
+    required this.children,
+    this.subtitle,
+  });
+
+  final String emoji;
+  final Color badgeColor;
   final String title;
+  final String? subtitle;
   final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(AppSpacing.xl),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.xl,
+        AppSpacing.lg,
+        AppSpacing.xl,
+        AppSpacing.xxl,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          _BlobBadge(emoji: emoji, color: badgeColor),
+          const SizedBox(height: AppSpacing.xl),
           Text(title, style: theme.textTheme.headlineLarge),
+          if (subtitle != null) ...[
+            const SizedBox(height: AppSpacing.sm),
+            Text(
+              subtitle!,
+              style: theme.textTheme.bodyLarge
+                  ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+            ),
+          ],
           const SizedBox(height: AppSpacing.xl),
           ...children,
+        ],
+      ),
+    );
+  }
+}
+
+/// A soft, rounded info/note card in a warm colour field.
+class _NoteCard extends StatelessWidget {
+  const _NoteCard({
+    required this.icon,
+    required this.text,
+    required this.fill,
+  });
+
+  final IconData icon;
+  final String text;
+  final Color fill;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    const Color ink = AppColors.lightTextPrimary;
+    return Container(
+      padding: const EdgeInsets.all(AppSpacing.lg),
+      decoration: BoxDecoration(
+        color: fill,
+        borderRadius: BorderRadius.circular(AppRadius.lg),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 20, color: AppColors.brandBerry),
+          const SizedBox(width: AppSpacing.md),
+          Expanded(
+            child: Text(
+              text,
+              style: theme.textTheme.bodyMedium?.copyWith(color: ink),
+            ),
+          ),
         ],
       ),
     );
@@ -218,36 +322,16 @@ class _WelcomeStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final ThemeData theme = Theme.of(context);
-    return _StepScaffold(
+    return _CozyStep(
+      emoji: '🌱',
+      badgeColor: AppColors.brandSkyLight,
       title: l10n.onbWelcomeTitle,
+      subtitle: l10n.onbWelcomeBody,
       children: [
-        Text(l10n.onbWelcomeBody, style: theme.textTheme.bodyLarge),
-        const SizedBox(height: AppSpacing.xl),
-        Container(
-          padding: const EdgeInsets.all(AppSpacing.lg),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceContainerHighest,
-            borderRadius: BorderRadius.circular(AppRadius.md),
-            border: Border.all(color: theme.colorScheme.outlineVariant),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(
-                Icons.info_outline_rounded,
-                size: 20,
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
-              const SizedBox(width: AppSpacing.sm),
-              Expanded(
-                child: Text(
-                  l10n.onbDisclaimer,
-                  style: theme.textTheme.bodyMedium,
-                ),
-              ),
-            ],
-          ),
+        _NoteCard(
+          icon: Icons.info_outline_rounded,
+          text: l10n.onbDisclaimer,
+          fill: AppColors.brandGold,
         ),
       ],
     );
@@ -272,7 +356,9 @@ class _HabitStep extends ConsumerWidget {
         ref.watch(onboardingControllerProvider.select((s) => s.type));
     final controller = ref.read(onboardingControllerProvider.notifier);
 
-    return _StepScaffold(
+    return _CozyStep(
+      emoji: '🌿',
+      badgeColor: AppColors.brandSand,
       title: l10n.onbHabitTitle,
       children: [
         Wrap(
@@ -280,26 +366,27 @@ class _HabitStep extends ConsumerWidget {
           runSpacing: AppSpacing.sm,
           children: [
             for (final HabitType type in kHabitTypeOrder)
-              ChoiceChip(
-                avatar: Icon(type.icon, size: 18),
-                label: Text(habitTypeName(l10n, type)),
+              _CozyChoiceChip(
+                icon: type.icon,
+                label: habitTypeName(l10n, type),
                 selected: selected == type,
-                onSelected: (_) => onSelectType(type),
+                onTap: () => onSelectType(type),
               ),
           ],
         ),
         if (selected?.needsMedicalWarning ?? false) ...[
           const SizedBox(height: AppSpacing.lg),
-          _WarningCard(text: l10n.onbAlcoholWarning),
+          _NoteCard(
+            icon: Icons.health_and_safety_outlined,
+            text: l10n.onbAlcoholWarning,
+            fill: AppColors.brandSand,
+          ),
         ],
         const SizedBox(height: AppSpacing.xl),
         TextField(
           controller: nameController,
           textInputAction: TextInputAction.next,
-          decoration: InputDecoration(
-            labelText: l10n.onbNameLabel,
-            border: const OutlineInputBorder(),
-          ),
+          decoration: InputDecoration(labelText: l10n.onbNameLabel),
           onChanged: controller.setName,
         ),
         const SizedBox(height: AppSpacing.lg),
@@ -308,11 +395,67 @@ class _HabitStep extends ConsumerWidget {
           decoration: InputDecoration(
             labelText: l10n.onbUnitLabel,
             helperText: l10n.onbUnitHelper,
-            border: const OutlineInputBorder(),
           ),
           onChanged: controller.setUnitLabel,
         ),
       ],
+    );
+  }
+}
+
+/// A rounded, pillowy selectable chip — berry fill when selected, a soft
+/// outlined pill otherwise.
+class _CozyChoiceChip extends StatelessWidget {
+  const _CozyChoiceChip({
+    required this.icon,
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final Color fg =
+        selected ? theme.colorScheme.onPrimary : theme.colorScheme.onSurface;
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(AppRadius.pill),
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: AppMotion.fast,
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.lg,
+            vertical: AppSpacing.md,
+          ),
+          decoration: BoxDecoration(
+            color: selected
+                ? theme.colorScheme.primary
+                : theme.colorScheme.surfaceContainer,
+            borderRadius: BorderRadius.circular(AppRadius.pill),
+            border: selected
+                ? null
+                : Border.all(color: theme.colorScheme.outlineVariant),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 18, color: fg),
+              const SizedBox(width: AppSpacing.sm),
+              Text(
+                label,
+                style: theme.textTheme.labelLarge?.copyWith(color: fg),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -357,20 +500,45 @@ class _StartStep extends ConsumerWidget {
         ref.watch(onboardingControllerProvider.select((s) => s.startedAt));
     final String locale = Localizations.localeOf(context).toString();
 
-    return _StepScaffold(
+    return _CozyStep(
+      emoji: '⏳',
+      badgeColor: AppColors.brandSkyLight,
       title: l10n.onbStartTitle,
+      subtitle: l10n.onbStartBody,
       children: [
-        Text(l10n.onbStartBody, style: theme.textTheme.bodyLarge),
-        const SizedBox(height: AppSpacing.xl),
-        Card(
-          child: ListTile(
-            leading: const Icon(Icons.schedule_rounded),
-            title: Text(
-              DateFormat.yMMMEd(locale).add_Hm().format(startedAt),
-              style: theme.textTheme.titleLarge,
-            ),
-            trailing: const Icon(Icons.edit_rounded),
+        Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(AppRadius.lg),
             onTap: () => _pick(context, ref),
+            child: Container(
+              padding: const EdgeInsets.all(AppSpacing.lg),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surfaceContainer,
+                borderRadius: BorderRadius.circular(AppRadius.lg),
+                border: Border.all(color: theme.colorScheme.outlineVariant),
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.schedule_rounded,
+                    color: AppColors.brandBerry,
+                  ),
+                  const SizedBox(width: AppSpacing.md),
+                  Expanded(
+                    child: Text(
+                      DateFormat.yMMMEd(locale).add_Hm().format(startedAt),
+                      style: theme.textTheme.titleLarge,
+                    ),
+                  ),
+                  Icon(
+                    Icons.edit_rounded,
+                    size: 20,
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
         const SizedBox(height: AppSpacing.md),
@@ -394,19 +562,21 @@ class _StartStep extends ConsumerWidget {
 /// consequences so the user seeds them during onboarding.
 class _ListStep extends StatefulWidget {
   const _ListStep({
+    required this.emoji,
+    required this.badgeColor,
     required this.title,
     required this.body,
     required this.hint,
-    required this.icon,
     required this.items,
     required this.onAdd,
     required this.onRemove,
   });
 
+  final String emoji;
+  final Color badgeColor;
   final String title;
   final String body;
   final String hint;
-  final IconData icon;
   final List<String> items;
   final ValueChanged<String> onAdd;
   final ValueChanged<int> onRemove;
@@ -435,11 +605,12 @@ class _ListStepState extends State<_ListStep> {
   Widget build(BuildContext context) {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ThemeData theme = Theme.of(context);
-    return _StepScaffold(
+    return _CozyStep(
+      emoji: widget.emoji,
+      badgeColor: widget.badgeColor,
       title: widget.title,
+      subtitle: widget.body,
       children: [
-        Text(widget.body, style: theme.textTheme.bodyLarge),
-        const SizedBox(height: AppSpacing.xl),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -450,10 +621,7 @@ class _ListStepState extends State<_ListStep> {
                 onSubmitted: (_) => _add(),
                 minLines: 1,
                 maxLines: 3,
-                decoration: InputDecoration(
-                  hintText: widget.hint,
-                  border: const OutlineInputBorder(),
-                ),
+                decoration: InputDecoration(hintText: widget.hint),
               ),
             ),
             const SizedBox(width: AppSpacing.sm),
@@ -466,20 +634,69 @@ class _ListStepState extends State<_ListStep> {
         ),
         const SizedBox(height: AppSpacing.lg),
         if (widget.items.isEmpty)
-          Text(l10n.onbOptional, style: theme.textTheme.bodyMedium)
+          Text(
+            l10n.onbOptional,
+            style: theme.textTheme.bodyMedium,
+          )
         else
           Wrap(
             spacing: AppSpacing.sm,
             runSpacing: AppSpacing.sm,
             children: [
               for (int i = 0; i < widget.items.length; i++)
-                InputChip(
-                  label: Text(widget.items[i]),
-                  onDeleted: () => widget.onRemove(i),
+                _RemovableChip(
+                  label: widget.items[i],
+                  onRemove: () => widget.onRemove(i),
                 ),
             ],
           ),
       ],
+    );
+  }
+}
+
+/// A soft rounded chip for a user-added line, with a remove affordance.
+class _RemovableChip extends StatelessWidget {
+  const _RemovableChip({required this.label, required this.onRemove});
+  final String label;
+  final VoidCallback onRemove;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.only(
+        left: AppSpacing.lg,
+        right: AppSpacing.sm,
+        top: AppSpacing.sm,
+        bottom: AppSpacing.sm,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.brandGold,
+        borderRadius: BorderRadius.circular(AppRadius.pill),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Flexible(
+            child: Text(
+              label,
+              style: theme.textTheme.bodyMedium
+                  ?.copyWith(color: AppColors.lightTextPrimary),
+            ),
+          ),
+          const SizedBox(width: AppSpacing.xs),
+          InkWell(
+            borderRadius: BorderRadius.circular(AppRadius.pill),
+            onTap: onRemove,
+            child: const Icon(
+              Icons.close_rounded,
+              size: 18,
+              color: AppColors.brandBerry,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -494,10 +711,11 @@ class _WhyStep extends ConsumerWidget {
     final List<String> items =
         ref.watch(onboardingControllerProvider.select((s) => s.whys));
     return _ListStep(
+      emoji: '💛',
+      badgeColor: AppColors.brandGold,
       title: l10n.onbWhyTitle,
       body: l10n.onbWhyBody,
       hint: l10n.onbWhyHint,
-      icon: Icons.favorite_rounded,
       items: items,
       onAdd: controller.addWhy,
       onRemove: controller.removeWhy,
@@ -515,10 +733,11 @@ class _BenefitsStep extends ConsumerWidget {
     final List<String> items =
         ref.watch(onboardingControllerProvider.select((s) => s.benefits));
     return _ListStep(
+      emoji: '☀️',
+      badgeColor: AppColors.brandSand,
       title: l10n.onbBenefitsTitle,
       body: l10n.onbBenefitsBody,
       hint: l10n.onbBenefitsHint,
-      icon: Icons.wb_sunny_rounded,
       items: items,
       onAdd: controller.addBenefit,
       onRemove: controller.removeBenefit,
@@ -536,10 +755,11 @@ class _ConsequencesStep extends ConsumerWidget {
     final List<String> items =
         ref.watch(onboardingControllerProvider.select((s) => s.consequences));
     return _ListStep(
+      emoji: '🧭',
+      badgeColor: AppColors.brandSkyLight,
       title: l10n.onbConsTitle,
       body: l10n.onbConsBody,
       hint: l10n.onbConsHint,
-      icon: Icons.warning_amber_rounded,
       items: items,
       onAdd: controller.addConsequence,
       onRemove: controller.removeConsequence,
@@ -575,11 +795,12 @@ class _SavingsStepState extends ConsumerState<_SavingsStep> {
   Widget build(BuildContext context) {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ThemeData theme = Theme.of(context);
-    return _StepScaffold(
+    return _CozyStep(
+      emoji: '🐷',
+      badgeColor: AppColors.brandSand,
       title: l10n.onbSavingsTitle,
+      subtitle: l10n.onbSavingsBody,
       children: [
-        Text(l10n.onbSavingsBody, style: theme.textTheme.bodyLarge),
-        const SizedBox(height: AppSpacing.xl),
         TextField(
           controller: _controller,
           keyboardType:
@@ -591,44 +812,11 @@ class _SavingsStepState extends ConsumerState<_SavingsStep> {
             labelText: l10n.onbSavingsLabel,
             prefixText: '€ ',
             helperText: l10n.onbSavingsHelper,
-            border: const OutlineInputBorder(),
           ),
         ),
         const SizedBox(height: AppSpacing.md),
         Text(l10n.onbOptional, style: theme.textTheme.bodyMedium),
       ],
-    );
-  }
-}
-
-class _WarningCard extends StatelessWidget {
-  const _WarningCard({required this.text});
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(AppRadius.md),
-        border: Border.all(color: theme.colorScheme.outline),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(
-            Icons.health_and_safety_outlined,
-            size: 20,
-            color: theme.colorScheme.onSurface,
-          ),
-          const SizedBox(width: AppSpacing.sm),
-          Expanded(
-            child: Text(text, style: theme.textTheme.bodyMedium),
-          ),
-        ],
-      ),
     );
   }
 }

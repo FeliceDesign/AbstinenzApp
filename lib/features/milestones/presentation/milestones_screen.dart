@@ -227,6 +227,7 @@ class _NextRing extends StatelessWidget {
                         ? '★'
                         : shortDuration(timeline.nextThresholdSeconds!),
                     style: theme.textTheme.headlineLarge?.copyWith(
+                      fontFamily: AppFonts.numeric,
                       fontFeatures: AppFonts.tabular,
                       color: onSand,
                     ),

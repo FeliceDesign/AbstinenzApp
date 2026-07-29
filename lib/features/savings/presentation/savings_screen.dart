@@ -120,6 +120,7 @@ class _Hero extends ConsumerWidget {
                 formatMoney(locale, currency, money),
                 style: theme.textTheme.displayLarge?.copyWith(
                   color: Colors.white,
+                  fontFamily: AppFonts.numeric,
                   fontFeatures: AppFonts.tabular,
                 ),
               ),

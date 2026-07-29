@@ -58,6 +58,7 @@ class CaloriesScreen extends ConsumerWidget {
                         formatKcal(locale, kcal),
                         style: theme.textTheme.displayLarge?.copyWith(
                           color: AppColors.brandSand,
+                          fontFamily: AppFonts.numeric,
                           fontFeatures: AppFonts.tabular,
                         ),
                       ),

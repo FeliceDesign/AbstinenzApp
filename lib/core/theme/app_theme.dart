@@ -147,6 +147,31 @@ class AppTheme {
           textStyle: textTheme.labelLarge,
         ),
       ),
+      // Cozy inputs: soft filled pills, no hard outline — the border only
+      // appears (in the accent) on focus. Matches the pillowy card language.
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: surfaceRaised,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg,
+          vertical: AppSpacing.lg,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppRadius.sm),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppRadius.sm),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppRadius.sm),
+          borderSide: BorderSide(color: primary, width: 2),
+        ),
+        labelStyle: TextStyle(color: textSecondary),
+        floatingLabelStyle: TextStyle(color: primary),
+        hintStyle: TextStyle(color: textSecondary),
+      ),
     );
   }
 
