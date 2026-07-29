@@ -32,7 +32,7 @@ class DashboardWhyCard extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.format_quote_rounded,
                 size: 20,
                 color: labelColor,
