@@ -1,11 +1,13 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/theme/tokens.dart';
 import '../../../core/utils/dates.dart';
 import '../../../core/widgets/color_field_card.dart';
+import '../../../core/widgets/empty_state.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../checkin/presentation/checkin_providers.dart';
 import '../../mood/domain/mood_stats.dart';
@@ -51,7 +53,12 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
             _SectionTitle(text: l10n.statsMoodSection),
             const SizedBox(height: AppSpacing.md),
             if (series.isEmpty)
-              _EmptyNote(text: l10n.statsMoodEmpty)
+              EmptyState(
+                icon: Icons.mood_rounded,
+                message: l10n.statsMoodEmpty,
+                actionLabel: l10n.statsLogMood,
+                onAction: () => context.push('/mood-entry'),
+              )
             else ...<Widget>[
               _MoodChart(series: series, from: from, to: today),
               const SizedBox(height: AppSpacing.md),

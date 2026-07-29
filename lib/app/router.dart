@@ -16,6 +16,7 @@ import '../features/motivation/presentation/motivation_screen.dart';
 import '../features/relapse/presentation/relapse_flow_screen.dart';
 import '../features/savings/presentation/calories_screen.dart';
 import '../features/settings/presentation/help_screen.dart';
+import '../features/settings/presentation/reminder_coordinator.dart';
 import '../features/settings/presentation/settings_screen.dart';
 import '../features/savings/presentation/savings_screen.dart';
 import '../features/stats/presentation/stats_screen.dart';
@@ -174,6 +175,7 @@ class _ScaffoldWithNav extends StatelessWidget {
         children: [
           navigationShell,
           const MilestoneCoordinator(),
+          const ReminderCoordinator(),
         ],
       ),
       floatingActionButton: const UrgeFab(),

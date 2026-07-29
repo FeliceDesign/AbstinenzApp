@@ -25,6 +25,7 @@ class SettingsScreen extends ConsumerWidget {
     final ThemeData theme = Theme.of(context);
     final ThemeMode mode = ref.watch(themeModeSettingProvider);
     final bool calories = ref.watch(caloriesEnabledProvider);
+    final ReminderConfig reminder = ref.watch(dailyReminderSettingProvider);
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settingsTitle)),
@@ -62,6 +63,29 @@ class SettingsScreen extends ConsumerWidget {
               value: calories,
               onChanged: (bool v) =>
                   ref.read(caloriesEnabledProvider.notifier).set(value: v),
+            ),
+            const SizedBox(height: AppSpacing.xl),
+            _SectionTitle(text: l10n.setReminders),
+            SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(l10n.setDailyReminder),
+              subtitle: Text(l10n.setDailyReminderDesc),
+              value: reminder.enabled,
+              onChanged: (bool v) => ref
+                  .read(dailyReminderSettingProvider.notifier)
+                  .setEnabled(value: v),
+            ),
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              enabled: reminder.enabled,
+              leading: const Icon(Icons.schedule_rounded),
+              title: Text(l10n.setReminderTime),
+              trailing: Text(
+                TimeOfDay(hour: reminder.hour, minute: reminder.minute)
+                    .format(context),
+                style: theme.textTheme.titleLarge,
+              ),
+              onTap: reminder.enabled ? () => _pickTime(context, ref) : null,
             ),
             const SizedBox(height: AppSpacing.xl),
             _SectionTitle(text: l10n.setSafety),
@@ -138,6 +162,18 @@ class SettingsScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _pickTime(BuildContext context, WidgetRef ref) async {
+    final ReminderConfig current = ref.read(dailyReminderSettingProvider);
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay(hour: current.hour, minute: current.minute),
+    );
+    if (picked == null) return;
+    await ref
+        .read(dailyReminderSettingProvider.notifier)
+        .setTime(hour: picked.hour, minute: picked.minute);
   }
 
   Future<void> _export(BuildContext context, WidgetRef ref) async {

@@ -4,6 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
+/// Reserved notification id for the single daily mood/check-in reminder. Kept
+/// far above the milestone ids (which are small database row ids) so the two
+/// never collide and the milestone coordinator can cancel its own ids without
+/// touching this one.
+const int kDailyReminderId = 1000000;
+
 /// A milestone notification to fire at an absolute instant.
 class ScheduledMilestone {
   const ScheduledMilestone({
@@ -117,6 +123,69 @@ class NotificationService {
       await _plugin.cancelAll();
     } catch (e) {
       debugPrint('NotificationService.cancelAll failed: $e');
+    }
+  }
+
+  NotificationDetails get _reminderDetails => const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'daily_reminder',
+          'Daily reminder',
+          channelDescription:
+              'A nightly nudge to log your mood and check-in',
+          importance: Importance.defaultImportance,
+          priority: Priority.defaultPriority,
+        ),
+        iOS: DarwinNotificationDetails(),
+      );
+
+  /// Schedules a reminder that repeats every day at [hour]:[minute] (device
+  /// wall-clock). Cancels any previous reminder first, so calling it again just
+  /// moves the time.
+  ///
+  /// The device's IANA timezone is not resolved here (that would need an extra
+  /// plugin), so the daily repeat is anchored to the UTC instant of the next
+  /// local occurrence and matched on its time component. That fires at the
+  /// chosen wall-clock time and can drift by an hour across a daylight-saving
+  /// change; it self-corrects the next time this is called (app launch or a
+  /// settings change), which is accurate enough for a nightly nudge.
+  Future<void> scheduleDailyReminder({
+    required int hour,
+    required int minute,
+    required String title,
+    required String body,
+  }) async {
+    if (!_ready) return;
+    try {
+      await _plugin.cancel(kDailyReminderId);
+      final DateTime now = DateTime.now();
+      DateTime firstLocal =
+          DateTime(now.year, now.month, now.day, hour, minute);
+      if (!firstLocal.isAfter(now)) {
+        firstLocal = firstLocal.add(const Duration(days: 1));
+      }
+      await _plugin.zonedSchedule(
+        kDailyReminderId,
+        title,
+        body,
+        tz.TZDateTime.from(firstLocal.toUtc(), tz.UTC),
+        _reminderDetails,
+        androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.time,
+      );
+    } catch (e) {
+      debugPrint('NotificationService.scheduleDailyReminder failed: $e');
+    }
+  }
+
+  /// Cancels the daily reminder (when the user turns it off).
+  Future<void> cancelDailyReminder() async {
+    if (!_ready) return;
+    try {
+      await _plugin.cancel(kDailyReminderId);
+    } catch (e) {
+      debugPrint('NotificationService.cancelDailyReminder failed: $e');
     }
   }
 }

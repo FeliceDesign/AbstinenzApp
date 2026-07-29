@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import '../../../core/db/database.dart';
 import '../../../core/theme/tokens.dart';
 import '../../../core/widgets/color_field_card.dart';
+import '../../../core/widgets/empty_state.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../tracker/presentation/tracker_providers.dart';
 import '../domain/benefit_presets.dart';
@@ -89,13 +90,13 @@ class _KindTab extends ConsumerWidget {
             data: (items) {
               if (items.isEmpty) {
                 return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppSpacing.xl),
-                    child: Text(
-                      _empty(l10n),
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
+                  child: EmptyState(
+                    icon: kind == MotivationKind.consequence
+                        ? Icons.warning_amber_rounded
+                        : Icons.favorite_rounded,
+                    message: _empty(l10n),
+                    actionLabel: l10n.motAdd,
+                    onAction: () => _add(context, ref),
                   ),
                 );
               }

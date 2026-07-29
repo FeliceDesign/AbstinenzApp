@@ -71,6 +71,9 @@ class _MilestoneCoordinatorState extends ConsumerState<MilestoneCoordinator> {
     final AppLocalizations? l10n = _l10n;
 
     final List<ScheduledMilestone> items = <ScheduledMilestone>[];
+    // Cancel exactly the milestone ids (not cancelAll) so the daily mood/
+    // check-in reminder — scheduled on a reserved id — survives a reschedule.
+    final List<int> cancelIds = <int>[];
 
     for (final Habit h in habits) {
       await _guard(() => repo.ensureSeeded(h.id, h.type));
@@ -95,6 +98,7 @@ class _MilestoneCoordinatorState extends ConsumerState<MilestoneCoordinator> {
               const <Milestone>[];
 
       for (final Milestone m in milestones) {
+        cancelIds.add(m.id);
         final DateTime reachAt =
             start.add(Duration(seconds: m.thresholdSeconds));
         if (m.achievedAt == null && !reachAt.isAfter(now)) {
@@ -113,8 +117,7 @@ class _MilestoneCoordinatorState extends ConsumerState<MilestoneCoordinator> {
       }
     }
 
-    await _guard(() => service.cancelAll());
-    await _guard(() => service.reschedule(items, cancelIds: const <int>[]));
+    await _guard(() => service.reschedule(items, cancelIds: cancelIds));
   }
 
   Future<void> _guard(Future<void> Function() action) async {

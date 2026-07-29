@@ -44,7 +44,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   final TextEditingController _name = TextEditingController();
   final TextEditingController _unit = TextEditingController();
   int _index = 0;
-  static const int _lastStep = 2;
+  // welcome, habit, start, why, benefits, consequences, savings
+  static const int _lastStep = 6;
 
   // Last auto-filled defaults. A field is treated as "not user-edited" while it
   // still equals the value we auto-filled, so switching type refreshes it; once
@@ -133,6 +134,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     onSelectType: _selectType,
                   ),
                   const _StartStep(),
+                  const _WhyStep(),
+                  const _BenefitsStep(),
+                  const _ConsequencesStep(),
+                  const _SavingsStep(),
                 ],
               ),
             ),
@@ -379,6 +384,218 @@ class _StartStep extends ConsumerWidget {
             label: Text(l10n.onbStartNow),
           ),
         ),
+      ],
+    );
+  }
+}
+
+/// A reusable "add several short lines" step: a text field with an add button
+/// and the added items shown as removable chips. Used for why / benefits /
+/// consequences so the user seeds them during onboarding.
+class _ListStep extends StatefulWidget {
+  const _ListStep({
+    required this.title,
+    required this.body,
+    required this.hint,
+    required this.icon,
+    required this.items,
+    required this.onAdd,
+    required this.onRemove,
+  });
+
+  final String title;
+  final String body;
+  final String hint;
+  final IconData icon;
+  final List<String> items;
+  final ValueChanged<String> onAdd;
+  final ValueChanged<int> onRemove;
+
+  @override
+  State<_ListStep> createState() => _ListStepState();
+}
+
+class _ListStepState extends State<_ListStep> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _add() {
+    final String text = _controller.text.trim();
+    if (text.isEmpty) return;
+    widget.onAdd(text);
+    _controller.clear();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    final ThemeData theme = Theme.of(context);
+    return _StepScaffold(
+      title: widget.title,
+      children: [
+        Text(widget.body, style: theme.textTheme.bodyLarge),
+        const SizedBox(height: AppSpacing.xl),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: TextField(
+                controller: _controller,
+                textInputAction: TextInputAction.done,
+                onSubmitted: (_) => _add(),
+                minLines: 1,
+                maxLines: 3,
+                decoration: InputDecoration(
+                  hintText: widget.hint,
+                  border: const OutlineInputBorder(),
+                ),
+              ),
+            ),
+            const SizedBox(width: AppSpacing.sm),
+            IconButton.filled(
+              onPressed: _add,
+              icon: const Icon(Icons.add_rounded),
+              tooltip: l10n.onbAdd,
+            ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        if (widget.items.isEmpty)
+          Text(l10n.onbOptional, style: theme.textTheme.bodyMedium)
+        else
+          Wrap(
+            spacing: AppSpacing.sm,
+            runSpacing: AppSpacing.sm,
+            children: [
+              for (int i = 0; i < widget.items.length; i++)
+                InputChip(
+                  label: Text(widget.items[i]),
+                  onDeleted: () => widget.onRemove(i),
+                ),
+            ],
+          ),
+      ],
+    );
+  }
+}
+
+class _WhyStep extends ConsumerWidget {
+  const _WhyStep();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    final controller = ref.read(onboardingControllerProvider.notifier);
+    final List<String> items =
+        ref.watch(onboardingControllerProvider.select((s) => s.whys));
+    return _ListStep(
+      title: l10n.onbWhyTitle,
+      body: l10n.onbWhyBody,
+      hint: l10n.onbWhyHint,
+      icon: Icons.favorite_rounded,
+      items: items,
+      onAdd: controller.addWhy,
+      onRemove: controller.removeWhy,
+    );
+  }
+}
+
+class _BenefitsStep extends ConsumerWidget {
+  const _BenefitsStep();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    final controller = ref.read(onboardingControllerProvider.notifier);
+    final List<String> items =
+        ref.watch(onboardingControllerProvider.select((s) => s.benefits));
+    return _ListStep(
+      title: l10n.onbBenefitsTitle,
+      body: l10n.onbBenefitsBody,
+      hint: l10n.onbBenefitsHint,
+      icon: Icons.wb_sunny_rounded,
+      items: items,
+      onAdd: controller.addBenefit,
+      onRemove: controller.removeBenefit,
+    );
+  }
+}
+
+class _ConsequencesStep extends ConsumerWidget {
+  const _ConsequencesStep();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    final controller = ref.read(onboardingControllerProvider.notifier);
+    final List<String> items =
+        ref.watch(onboardingControllerProvider.select((s) => s.consequences));
+    return _ListStep(
+      title: l10n.onbConsTitle,
+      body: l10n.onbConsBody,
+      hint: l10n.onbConsHint,
+      icon: Icons.warning_amber_rounded,
+      items: items,
+      onAdd: controller.addConsequence,
+      onRemove: controller.removeConsequence,
+    );
+  }
+}
+
+class _SavingsStep extends ConsumerStatefulWidget {
+  const _SavingsStep();
+
+  @override
+  ConsumerState<_SavingsStep> createState() => _SavingsStepState();
+}
+
+class _SavingsStepState extends ConsumerState<_SavingsStep> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(
+      text: ref.read(onboardingControllerProvider).savingsText,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    final ThemeData theme = Theme.of(context);
+    return _StepScaffold(
+      title: l10n.onbSavingsTitle,
+      children: [
+        Text(l10n.onbSavingsBody, style: theme.textTheme.bodyLarge),
+        const SizedBox(height: AppSpacing.xl),
+        TextField(
+          controller: _controller,
+          keyboardType:
+              const TextInputType.numberWithOptions(decimal: true),
+          onChanged: (String v) => ref
+              .read(onboardingControllerProvider.notifier)
+              .setSavingsText(v),
+          decoration: InputDecoration(
+            labelText: l10n.onbSavingsLabel,
+            prefixText: '€ ',
+            helperText: l10n.onbSavingsHelper,
+            border: const OutlineInputBorder(),
+          ),
+        ),
+        const SizedBox(height: AppSpacing.md),
+        Text(l10n.onbOptional, style: theme.textTheme.bodyMedium),
       ],
     );
   }
