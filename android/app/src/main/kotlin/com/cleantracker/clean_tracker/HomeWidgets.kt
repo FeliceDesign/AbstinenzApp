@@ -3,11 +3,12 @@ package com.cleantracker.clean_tracker
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
+import android.os.Build
 import android.view.View
 import android.widget.RemoteViews
-import es.antonborri.home_widget.HomeWidgetLaunchIntent
 import es.antonborri.home_widget.HomeWidgetProvider
 
 private const val DAY_MS = 86_400_000L
@@ -37,12 +38,46 @@ private object WidgetData {
         return if (d < 0) 0 else d
     }
 
-    fun open(context: Context, host: String): PendingIntent =
-        HomeWidgetLaunchIntent.getActivity(
-            context,
-            MainActivity::class.java,
-            Uri.parse("unbound://$host"),
-        )
+    /**
+     * A PendingIntent that launches the app at `unbound://<host>`.
+     *
+     * Built by hand (rather than via home_widget's HomeWidgetLaunchIntent) on
+     * purpose: that helper lives in a file that imports androidx.glance, which
+     * we exclude from the build — referencing it here would throw
+     * NoClassDefFoundError inside onUpdate and crash the app's process. We only
+     * need to reproduce its behaviour: launch MainActivity with the URI and the
+     * action home_widget's Dart side listens for, so widgetClicked /
+     * initiallyLaunchedFromHomeWidget still deliver the deep link.
+     */
+    fun open(context: Context, host: String): PendingIntent {
+        val intent = Intent(context, MainActivity::class.java).apply {
+            data = Uri.parse("unbound://$host")
+            action = "es.antonborri.home_widget.action.LAUNCH"
+        }
+        var flags = PendingIntent.FLAG_UPDATE_CURRENT
+        if (Build.VERSION.SDK_INT >= 23) {
+            flags = flags or PendingIntent.FLAG_IMMUTABLE
+        }
+        return PendingIntent.getActivity(context, host.hashCode(), intent, flags)
+    }
+}
+
+/**
+ * Render each widget instance, guarding every one so a single render failure can
+ * never propagate out of the broadcast receiver and crash the host app process
+ * (an AppWidgetProvider runs in the app's own process).
+ */
+private inline fun eachWidget(
+    appWidgetIds: IntArray,
+    render: (Int) -> Unit,
+) {
+    for (id in appWidgetIds) {
+        try {
+            render(id)
+        } catch (_: Throwable) {
+            // Leave the widget on its previous/initial layout; keep the app alive.
+        }
+    }
 }
 
 /** Just the clean streak — a blue hero square. */
@@ -53,7 +88,7 @@ class TimeWidgetProvider : HomeWidgetProvider() {
         appWidgetIds: IntArray,
         widgetData: SharedPreferences,
     ) {
-        for (id in appWidgetIds) {
+        eachWidget(appWidgetIds) { id ->
             val views = RemoteViews(context.packageName, R.layout.widget_time)
             val active = WidgetData.bool(widgetData, "has_habit") &&
                 WidgetData.bool(widgetData, "time_active")
@@ -90,7 +125,7 @@ class MoneyWidgetProvider : HomeWidgetProvider() {
         appWidgetIds: IntArray,
         widgetData: SharedPreferences,
     ) {
-        for (id in appWidgetIds) {
+        eachWidget(appWidgetIds) { id ->
             val views = RemoteViews(context.packageName, R.layout.widget_money)
             if (WidgetData.bool(widgetData, "money_has")) {
                 views.setTextViewText(
@@ -122,7 +157,7 @@ class UrgeWidgetProvider : HomeWidgetProvider() {
         appWidgetIds: IntArray,
         widgetData: SharedPreferences,
     ) {
-        for (id in appWidgetIds) {
+        eachWidget(appWidgetIds) { id ->
             val views = RemoteViews(context.packageName, R.layout.widget_urge)
             views.setTextViewText(
                 R.id.urge_title,
@@ -146,7 +181,7 @@ class DashboardWidgetProvider : HomeWidgetProvider() {
         appWidgetIds: IntArray,
         widgetData: SharedPreferences,
     ) {
-        for (id in appWidgetIds) {
+        eachWidget(appWidgetIds) { id ->
             val views = RemoteViews(context.packageName, R.layout.widget_dashboard)
 
             views.setTextViewText(
