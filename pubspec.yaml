@@ -46,11 +46,15 @@ dependencies:
   local_auth: ^2.3.0
 
   # Android home-screen widgets (time / money / urge / dashboard). Pinned to
-  # 0.4.1 on purpose: it is the last release before home_widget started pulling
-  # androidx.glance, which requires compileSdk 35 and would break this project's
-  # deliberate compileSdk-34 pinning (see the note below). 0.4.1 is pure
-  # RemoteViews, compileSdk 34, and needs no extra permissions (no INTERNET).
-  home_widget: 0.4.1
+  # 0.7.0 on purpose — it sits in a narrow compatibility window:
+  #  * 0.7.0's module is compileSdk 34 / glance 1.0.0, so it respects this
+  #    project's deliberate compileSdk-34 pinning (see the note below). 0.8.0+
+  #    jump to compileSdk 35 / glance 1.+ and would break it.
+  #  * yet it is new enough to use the current ViewConfiguration(logicalConstraints:)
+  #    API — 0.4.x still called ViewConfiguration(size:), which this Flutter
+  #    removed, so the older release failed to compile.
+  # It needs no extra permissions (the widgets read only locally-stored data).
+  home_widget: 0.7.0
 
   # Formatting / i18n
   intl: any
