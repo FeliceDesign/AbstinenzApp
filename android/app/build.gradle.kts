@@ -43,6 +43,18 @@ kotlin {
     }
 }
 
+// home_widget pulls androidx.glance (Jetpack Compose) transitively, and Glance
+// in turn drags in WorkManager, whose androidx.startup InitializationProvider
+// runs at app launch — before the first Flutter frame. We only ever use classic
+// RemoteViews app widgets (never Glance), so this whole stack is dead weight and
+// its startup initializer is the likely cause of an instant on-device launch
+// crash. Excluding it keeps the widgets working and slims the APK.
+configurations.all {
+    exclude(group = "androidx.glance")
+    exclude(group = "androidx.work", module = "work-runtime")
+    exclude(group = "androidx.work", module = "work-runtime-ktx")
+}
+
 dependencies {
     // Required by flutter_local_notifications' use of java.time on older APIs.
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
